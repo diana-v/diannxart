@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  images: {
-      domains: ['cdn.sanity.io']
-  },
+module.exports = {
+    reactStrictMode: true,
+    images: {
+        domains: ['cdn.sanity.io']
+    },
     async redirects() {
         return [
             {
@@ -13,6 +13,13 @@ const nextConfig = {
             }
         ];
     },
-}
 
-module.exports = nextConfig
+    webpack: (config) => {
+        config.module.rules.push({
+                test: /\.svg$/,
+                use: ['@svgr/webpack', 'url-loader'],
+        })
+
+        return config
+    },
+}

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { createClient } from "next-sanity";
 import {GetServerSideProps, NextPage} from "next";
 import Link from "next/link";
+import { PostsLayout } from "@/layouts/PostsLayout/PostsLayout";
 
 interface PostData {
     id: string,
@@ -14,10 +15,7 @@ interface PageProps {
 
 const Work: NextPage<PageProps> = ({posts}) => {
     return (
-        <>
-            <header>
-                <h1>Sanity + Next.js</h1>
-            </header>
+        <PostsLayout>
             <main>
                 <h2>pets</h2>
                 {posts.length > 0 && (
@@ -38,7 +36,7 @@ const Work: NextPage<PageProps> = ({posts}) => {
                 )}
                 {posts && posts.length === 0 && <p>No pets to show</p>}
             </main>
-        </>
+        </PostsLayout>
     );
 }
 
