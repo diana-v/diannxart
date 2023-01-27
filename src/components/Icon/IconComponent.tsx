@@ -17,7 +17,9 @@ export const IconComponent: React.FC<ComponentProps & React.SVGProps<SVGSVGEleme
 
     const importIcon = React.useCallback(async () => {
         try {
-            ImportedIconRef.current = (await import(`./icons/${Icons[name]}.svg`)).ReactComponent;
+            const importedIcon = await import(`./icons/${Icons[name]}.svg`);
+
+            ImportedIconRef.current = importedIcon.ReactComponent;
         } finally {
             setLoading(false);
         }

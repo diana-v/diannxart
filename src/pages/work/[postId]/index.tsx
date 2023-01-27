@@ -2,14 +2,14 @@ import Image from 'next/image';
 import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
 
-interface Post {
+interface PostData {
     id: string;
     title: string;
     imageUrl: string;
 }
 
 interface PageProps {
-    post: Post;
+    post: PostData;
 }
 
 const Post: NextPage<PageProps> = ({ post }) => {

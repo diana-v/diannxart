@@ -17,6 +17,12 @@
         "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen", "layer"]
       }
     ],
+    "annotation-no-unknown": [
+      true,
+      {
+        "ignoreAnnotations": ["default"]
+      }
+    ],
     "declaration-block-trailing-semicolon": null,
     "no-descending-specificity": null,
     "scale-unlimited/declaration-strict-value": [

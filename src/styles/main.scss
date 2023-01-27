@@ -1,4 +1,4 @@
-@import './variables';
+@import url('./variables');
 
 @tailwind base;
 @tailwind components;
@@ -41,7 +41,8 @@
 
     * {
         box-sizing: inherit;
-        scrollbar-color: var(--grey-100-color, #{$grey100}) var(--white-color, #{$white});
+        scrollbar-color: var(--grey-100-color, #{$grey100})
+            var(--white-color, #{$white});
 
         &::before,
         &::after {
