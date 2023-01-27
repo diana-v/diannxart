@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "cd studio && sanity build",
     "build": "next build",
     "start": "next start",
     "sanity": "cd studio && sanity dev",
