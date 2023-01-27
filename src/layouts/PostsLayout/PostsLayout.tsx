@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styles from "./postsLayout.module.scss";
+
+import styles from './postsLayout.module.scss';
 import { FooterContainer } from 'src/containers/Footer/FooterContainer';
 import { HeaderContainer } from 'src/containers/Header/HeaderContainer';
 

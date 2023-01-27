@@ -1,19 +1,20 @@
-import Image from 'next/image'
-import { createClient } from "next-sanity";
-import {GetServerSideProps, NextPage} from "next";
-import Link from "next/link";
-import { PostsLayout } from "@/layouts/PostsLayout/PostsLayout";
+import Image from 'next/image';
+import { createClient } from 'next-sanity';
+import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
+
+import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 
 interface PostData {
-    id: string,
-    title: string,
-    imageUrl: string,
+    id: string;
+    title: string;
+    imageUrl: string;
 }
 interface PageProps {
     posts: PostData[];
 }
 
-const Work: NextPage<PageProps> = ({posts}) => {
+const Work: NextPage<PageProps> = ({ posts }) => {
     return (
         <PostsLayout>
             <main>
@@ -26,9 +27,10 @@ const Work: NextPage<PageProps> = ({posts}) => {
                                     href={{
                                         pathname: '/work/[postId]',
                                         query: { postId: post.id },
-                                    }}>
+                                    }}
+                                >
                                     {post?.title}
-                                    <Image alt={post.title} src={post.imageUrl} width={500} height={500}/>
+                                    <Image alt={post.title} src={post.imageUrl} width={500} height={500} />
                                 </Link>
                             </li>
                         ))}
@@ -38,13 +40,13 @@ const Work: NextPage<PageProps> = ({posts}) => {
             </main>
         </PostsLayout>
     );
-}
+};
 
 const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
     apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-    useCdn: false
+    useCdn: false,
 });
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -58,9 +60,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     return {
         props: {
-            posts
-        }
+            posts,
+        },
     };
-}
+};
 
 export default Work;

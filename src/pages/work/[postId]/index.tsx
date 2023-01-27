@@ -1,18 +1,18 @@
-import Image from 'next/image'
-import { createClient } from "next-sanity";
-import { GetServerSideProps, NextPage } from "next";
+import Image from 'next/image';
+import { createClient } from 'next-sanity';
+import { GetServerSideProps, NextPage } from 'next';
 
 interface Post {
-    id: string,
-    title: string,
-    imageUrl: string,
+    id: string;
+    title: string;
+    imageUrl: string;
 }
 
 interface PageProps {
-    post: Post
+    post: Post;
 }
 
-const Post: NextPage<PageProps>  = ({ post }) => {
+const Post: NextPage<PageProps> = ({ post }) => {
     return (
         <>
             <header>
@@ -21,20 +21,22 @@ const Post: NextPage<PageProps>  = ({ post }) => {
             <main>
                 <h2>pets</h2>
                 <div>
-                    <span className="font-bold text-red" key={post.id}>{post.title}</span>
-                    <Image alt={post.title} src={post.imageUrl} width={500} height={500}/>
+                    <span className="font-bold text-red" key={post.id}>
+                        {post.title}
+                    </span>
+                    <Image alt={post.title} src={post.imageUrl} width={500} height={500} />
                 </div>
                 {!post && <p>No post</p>}
             </main>
         </>
     );
-}
+};
 
 const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
     apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION,
-    useCdn: false
+    useCdn: false,
 });
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -43,14 +45,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           title,
           "id": _id,
           "imageUrl": mainImage.asset->url
-      }[0]`
-    );
+      }[0]`);
 
     return {
         props: {
-            post
-        }
-    }
-}
+            post,
+        },
+    };
+};
 
 export default Post;
