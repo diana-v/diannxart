@@ -1,0 +1,10 @@
+.root {
+    @apply container mx-auto flex flex-wrap justify-between items-center px-4 py-3 gap-x-5;
+}
+
+.linkContainer {
+    @apply md:max-h-[initial] overflow-hidden md:overflow-visible;
+    @apply flex flex-col md:flex-row basis-full md:basis-auto gap-2 md:gap-5;
+    @apply text-xl md:text-2xl;
+    @apply transition-[max-height] ease-out duration-500;
+}
