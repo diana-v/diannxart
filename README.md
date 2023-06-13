@@ -8,7 +8,7 @@ It is deployed using Vercel to the following domains:
 
 ## Setup
 
-1. Install Node LTS 
+1. Install Node LTS
 2. Copy file `.env` to `env.development.local`
 3. Go to https://www.sanity.io/ and grab secrets
 4. `npm ci` Install modules
@@ -37,4 +37,4 @@ By introducing new Environment variables or modifying existing one please read b
 -   [SASS + css module](https://sass-lang.com) - css preprocessor
 
 ## Important information
-1. Sanity studio dev server only runs error free when env variables are loaded using VITE's convention `import.meta.env.KEY`. Please see [sanity.config.ts](sanity.config.ts)
+1. Sanity studio dev server only runs error free when environment variables are loaded using VITE's convention `import.meta.env.KEY`. Please see [sanity.config.ts](sanity.config.ts)
