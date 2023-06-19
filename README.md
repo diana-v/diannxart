@@ -23,7 +23,7 @@ By introducing new Environment variables or modifying existing one please read b
 2. `.env.development.local` file: Here you place all your secrets. This will overwrite .env default values. Do not commit this file to the repository. 
 3. All ENV variables at `.env` file should also be added to Vercel > Settings > Environment Variables 
 4. Application ENV variables must be prefixed with `NEXT_`
-5. Sanity ENV variables must be prefixed with `SANITY_STUDIO_`
+5. Sanity ENV variables must be prefixed with `SANITY_STUDIO_`. If you want to expose them to the client in production environment please create another env variable with the `NEXT_PUBLIC` prefix and import it via `process.env` instead of `import.meta.env`.
 
    > ⚠️ **Attention!** Only ENV variables added to Vercel will have effect after deployment.
 
