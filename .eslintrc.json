@@ -116,6 +116,7 @@
         "displayName": "static public field"
       }
     ],
+    "react/no-unescaped-entities": "off",
     // Makes no sense - typescript is very good at predicting a return type
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

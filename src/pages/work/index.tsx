@@ -46,7 +46,6 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                         ))}
                     </ul>
                 )}
-                {posts && posts.length === 0 && <p>No pets to show</p>}
             </>
         </PostsLayout>
     );

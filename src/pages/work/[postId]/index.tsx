@@ -23,21 +23,21 @@ const Post: NextPage<PageProps> = ({ post }) => {
     return (
         <>
             <HeaderContainer />
-            <>
-                <div className={styles.root}>
-                    <h1 className={styles.title} key={post.id}>
-                        {post.title}
-                    </h1>
-                    {publishingYear && (
-                        <p className="text-2xl flex gap-2">
-                            <span>Year:</span>
-                            <b>{publishingYear}</b>
-                        </p>
-                    )}
+            <div className={styles.root}>
+                <h1 className={styles.title} key={post.id}>
+                    {post.title}
+                </h1>
+                {publishingYear && (
+                    <p className="text-2xl flex gap-2">
+                        <span>Year:</span>
+                        <b>{publishingYear}</b>
+                    </p>
+                )}
+                <div className="overflow-hidden rounded-md">
                     <ImageContainer alt={post.title} src={post.imageUrl} width={1140} height={1000} />
                 </div>
-                {!post && <p>No post</p>}
-            </>
+            </div>
+            {!post && <p>No post</p>}
             <FooterContainer />
         </>
     );
