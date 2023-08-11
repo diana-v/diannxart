@@ -5,9 +5,6 @@ import * as React from 'react';
  */
 enum Icons {
     hamburger = 'hamburger',
-    cross = 'cross',
-    error = 'error',
-    success = 'success',
 }
 
 interface ComponentProps {
