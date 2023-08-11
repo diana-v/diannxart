@@ -1,12 +1,14 @@
 import * as React from 'react';
 
+import styles from './about.module.scss';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 
 const About: React.FC = () => {
     return (
         <DefaultLayout>
-            <div className="container flex mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
-                <article className="flex flex-col md:justify-center gap-4 text-xl md:text-2xl">
+            <div className="container flex flex-col mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
+                <h1 className={styles.title}>About</h1>
+                <article className="flex flex-col gap-4 text-xl md:text-2xl">
                     <p>
                         Art has the power to transform your surroundings into a haven of beauty, and spark inspiration.
                         Whether you're looking to infuse your living room with an air of elegance, create a soothing
