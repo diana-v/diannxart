@@ -1,10 +1,19 @@
 import * as React from 'react';
 import Link from 'next/link';
+import cn from 'clsx';
+import { useRouter } from 'next/router';
 
 import styles from './headerContainer.module.scss';
 import { IconComponent } from '@/components/Icon/IconComponent';
 
+enum Pages {
+    Work = '/work',
+    About = '/about',
+    Contact = '/contact',
+}
+
 export const HeaderContainer: React.FC = () => {
+    const { asPath } = useRouter();
     const [showMenu, setShowMenu] = React.useState(false);
 
     const handleShowMenu = React.useCallback(() => {
@@ -20,13 +29,22 @@ export const HeaderContainer: React.FC = () => {
                 <IconComponent name="hamburger" />
             </button>
             <div className={`${showMenu ? 'max-h-[124px]' : 'max-h-[0px]'} ${styles.linkContainer}`}>
-                <Link href={'/work'} className="text-grey-400 hover:text-black">
+                <Link
+                    href={'/work'}
+                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.Work })}
+                >
                     Work
                 </Link>
-                <Link href={'/about'} className="text-grey-400 hover:text-black">
+                <Link
+                    href={'/about'}
+                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.About })}
+                >
                     About
                 </Link>
-                <Link href={'/contact'} className="text-grey-400 hover:text-black">
+                <Link
+                    href={'/contact'}
+                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.Contact })}
+                >
                     Contact
                 </Link>
             </div>
