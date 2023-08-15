@@ -18,10 +18,10 @@
 
 
 .buttonContainer {
-    @apply px-4 py-2 w-full bg-white sticky bottom-0 flex justify-center;
+    @apply container mx-auto px-4 py-2 w-full bg-white sticky bottom-0 flex justify-center;
 }
 
 .button {
-    @apply px-4 py-2 w-full max-w-6xl rounded-md shadow-md border border-black;
+    @apply py-2 w-full max-w-6xl rounded-md shadow-md border border-black;
     @apply text-xl md:text-2xl text-black uppercase font-bold tracking-wider;
 }
