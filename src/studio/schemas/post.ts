@@ -59,6 +59,11 @@ export default defineType({
             title: 'Sold',
             type: 'boolean',
         }),
+        defineField({
+            name: 'price',
+            title: 'Price',
+            type: 'string',
+        }),
     ],
 
     preview: {

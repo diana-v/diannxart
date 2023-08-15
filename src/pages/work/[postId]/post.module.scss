@@ -2,6 +2,10 @@
     @apply container flex flex-col items-center gap-6 mx-auto px-4 py-3;
 }
 
+.description {
+    @apply flex flex-col items-center;
+}
+
 .title {
     @apply uppercase text-5xl md:text-7xl font-serif font-thin text-center;
     @apply transition-[font-size] ease-in duration-500;
@@ -10,6 +14,11 @@
 .label {
     @apply px-6 py-2 absolute top-8 right-0 bg-white border-black border-r-0 rounded-r-none rounded-md;
     @apply text-xl md:text-2xl uppercase font-bold tracking-wider;
+}
+
+
+.buttonContainer {
+    @apply px-4 py-2 w-full bg-white sticky bottom-0 flex justify-center;
 }
 
 .button {

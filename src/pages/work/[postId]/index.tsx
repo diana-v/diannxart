@@ -11,6 +11,8 @@ import { ImageContainer } from '@/containers/Image/ImageContainer';
 interface PostData {
     id: string;
     title: string;
+    subtitle: string;
+    price?: string;
     publishedAt?: string;
     imageUrl: string;
     sold: boolean;
@@ -32,27 +34,33 @@ const Post: NextPage<PageProps> = ({ post }) => {
     return (
         <>
             <HeaderContainer />
-            <div className={styles.root}>
-                <h1 className={styles.title} key={post.id}>
-                    {post.title}
-                </h1>
-                {publishingYear && (
-                    <p className="text-2xl flex gap-2">
-                        <span>Year:</span>
-                        <b>{publishingYear}</b>
-                    </p>
-                )}
-                <div className="overflow-hidden rounded-md relative">
-                    <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
-                    {post.sold && <div className={styles.label}>Sold</div>}
+            <>
+                <div className={styles.root}>
+                    <h1 className={styles.title}>{post.title}</h1>
+                    <div className={styles.description}>
+                        {publishingYear && (
+                            <p className="text-2xl flex gap-2">
+                                <span>Year:</span>
+                                <b>{publishingYear}</b>
+                            </p>
+                        )}
+                        <p className="text-2xl">{post.subtitle}</p>
+                    </div>
+
+                    <div className="overflow-hidden rounded-md relative">
+                        <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
+                        {post.sold && <div className={styles.label}>Sold</div>}
+                        {post.price && !post.sold && <div className={styles.label}>{post.price}</div>}
+                    </div>
                 </div>
                 {!post.sold && (
-                    <button type="button" onClick={handleClick} className={styles.button}>
-                        Enquire
-                    </button>
+                    <div className={styles.buttonContainer}>
+                        <button type="button" onClick={handleClick} className={styles.button}>
+                            Enquire
+                        </button>
+                    </div>
                 )}
-            </div>
-            {!post && <p>No post</p>}
+            </>
             <FooterContainer />
         </>
     );
@@ -69,8 +77,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const postId = params?.postId;
     const post = await client.fetch(`*[_type == 'post' && _id == '${postId}']{
           title,
+          subtitle,
           publishedAt,
           sold,
+          price,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }[0]`);

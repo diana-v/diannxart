@@ -13,6 +13,7 @@ interface PostData {
     subtitle: string;
     imageUrl: string;
     sold: boolean;
+    price?: string;
 }
 interface PageProps {
     posts: PostData[];
@@ -42,8 +43,15 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                         />
                                         {post.sold && <div className={styles.label}>Sold</div>}
                                     </div>
-                                    <h2 className="text-2xl">{post?.title}</h2>
-                                    <p className="text-xl">{post?.subtitle}</p>
+                                    <div className="flex w-full">
+                                        <div className="flex flex-col flex-grow">
+                                            <h2 className="text-2xl">{post?.title}</h2>
+                                            <p className="text-xl">{post?.subtitle}</p>
+                                        </div>
+                                        {post.price && !post.sold && (
+                                            <span className="text-2xl font-bold">{post.price}</span>
+                                        )}
+                                    </div>
                                 </Link>
                             </li>
                         ))}
@@ -67,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           title,
           subtitle,
           sold,
+          price,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }`
