@@ -2,6 +2,9 @@ import * as React from 'react';
 import * as Yup from 'yup';
 import cn from 'clsx';
 import { Formik, Field, Form } from 'formik';
+import { createClient } from 'next-sanity';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
 import styles from './contact.module.scss';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
@@ -12,10 +15,16 @@ interface Values {
     text: string;
 }
 
-const Contact: React.FC = () => {
-    const initialValues = { from: '', text: '' };
+interface PageProps {
+    posts: string[];
+}
+
+const Contact: React.FC<PageProps> = ({ posts }) => {
+    const { query } = useRouter();
+    const initialValues = { from: '', artwork: query.title, text: '' };
     const contactSchema = Yup.object().shape({
         from: Yup.string().email('Invalid email').required('Required'),
+        artwork: Yup.string().oneOf(posts),
         text: Yup.string().min(2, 'Too Short!').max(900, 'Too Long!').required('Required'),
     });
 
@@ -47,6 +56,29 @@ const Contact: React.FC = () => {
                             </div>
                             <div className={styles.question}>
                                 <label className={styles.label} htmlFor="text">
+                                    Artwork:
+                                </label>
+                                <div>
+                                    <Field
+                                        className={cn(styles.field, { [styles.error]: errors.text })}
+                                        component="select"
+                                        id="artwork"
+                                        name="artwork"
+                                    >
+                                        <option value="">General query</option>
+                                        {posts.map((post) => (
+                                            <option key={post} value={post}>
+                                                {post}
+                                            </option>
+                                        ))}
+                                    </Field>
+                                    {errors.artwork && touched.artwork && (
+                                        <div className="text-red-700">{errors.artwork}</div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={styles.question}>
+                                <label className={styles.label} htmlFor="text">
                                     Enquiry:
                                 </label>
                                 <div>
@@ -72,6 +104,23 @@ const Contact: React.FC = () => {
             </div>
         </DefaultLayout>
     );
+};
+
+const client = createClient({
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+    dataset: process.env.SANITY_STUDIO_DATASET,
+    apiVersion: process.env.SANITY_STUDIO_API_VERSION,
+    useCdn: false,
+});
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const posts = await client.fetch(`*[_type == 'post'][].title`);
+
+    return {
+        props: {
+            posts,
+        },
+    };
 };
 
 export default Contact;

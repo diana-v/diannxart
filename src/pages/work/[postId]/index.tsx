@@ -1,5 +1,7 @@
+import * as React from 'react';
 import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
@@ -18,7 +20,13 @@ interface PageProps {
 }
 
 const Post: NextPage<PageProps> = ({ post }) => {
+    const { push } = useRouter();
+
     const publishingYear = post.publishedAt && new Date(post.publishedAt).getFullYear();
+
+    const handleClick = React.useCallback(() => {
+        push(`/contact?title=${post.title}`);
+    }, []);
 
     return (
         <>
@@ -36,6 +44,9 @@ const Post: NextPage<PageProps> = ({ post }) => {
                 <div className="overflow-hidden rounded-md">
                     <ImageContainer alt={post.title} src={post.imageUrl} width={1140} height={1000} />
                 </div>
+                <button type="button" onClick={handleClick} className={styles.button}>
+                    Enquire
+                </button>
             </div>
             {!post && <p>No post</p>}
             <FooterContainer />

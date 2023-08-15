@@ -6,3 +6,8 @@
     @apply uppercase text-5xl md:text-7xl font-serif font-thin text-center;
     @apply transition-[font-size] ease-in duration-500;
 }
+
+.button {
+    @apply px-4 py-2 w-full rounded-md shadow-md border border-black;
+    @apply text-xl md:text-2xl text-black uppercase font-bold tracking-wider;
+}
