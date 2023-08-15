@@ -1,6 +1,7 @@
 import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
+import * as React from 'react';
 
 import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import styles from './work.module.scss';
@@ -11,6 +12,7 @@ interface PostData {
     title: string;
     subtitle: string;
     imageUrl: string;
+    sold: boolean;
 }
 interface PageProps {
     posts: PostData[];
@@ -38,6 +40,7 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                             width={800}
                                             height={500}
                                         />
+                                        {post.sold && <div className={styles.label}>Sold</div>}
                                     </div>
                                     <h2 className="text-2xl">{post?.title}</h2>
                                     <p className="text-xl">{post?.subtitle}</p>
@@ -63,6 +66,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         `*[_type == 'post']{
           title,
           subtitle,
+          sold,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }`

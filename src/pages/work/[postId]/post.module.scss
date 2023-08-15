@@ -7,7 +7,12 @@
     @apply transition-[font-size] ease-in duration-500;
 }
 
+.label {
+    @apply px-6 py-2 absolute top-8 right-0 bg-white border-black border-r-0 rounded-r-none rounded-md;
+    @apply text-xl md:text-2xl uppercase font-bold tracking-wider;
+}
+
 .button {
-    @apply px-4 py-2 w-full rounded-md shadow-md border border-black;
+    @apply px-4 py-2 w-full max-w-6xl rounded-md shadow-md border border-black;
     @apply text-xl md:text-2xl text-black uppercase font-bold tracking-wider;
 }

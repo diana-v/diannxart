@@ -114,7 +114,7 @@ const client = createClient({
 });
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const posts = await client.fetch(`*[_type == 'post'][].title`);
+    const posts = await client.fetch(`*[_type == 'post' && sold != true][].title`);
 
     return {
         props: {

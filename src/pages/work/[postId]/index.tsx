@@ -13,6 +13,7 @@ interface PostData {
     title: string;
     publishedAt?: string;
     imageUrl: string;
+    sold: boolean;
 }
 
 interface PageProps {
@@ -41,12 +42,15 @@ const Post: NextPage<PageProps> = ({ post }) => {
                         <b>{publishingYear}</b>
                     </p>
                 )}
-                <div className="overflow-hidden rounded-md">
-                    <ImageContainer alt={post.title} src={post.imageUrl} width={1140} height={1000} />
+                <div className="overflow-hidden rounded-md relative">
+                    <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
+                    {post.sold && <div className={styles.label}>Sold</div>}
                 </div>
-                <button type="button" onClick={handleClick} className={styles.button}>
-                    Enquire
-                </button>
+                {!post.sold && (
+                    <button type="button" onClick={handleClick} className={styles.button}>
+                        Enquire
+                    </button>
+                )}
             </div>
             {!post && <p>No post</p>}
             <FooterContainer />
@@ -66,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await client.fetch(`*[_type == 'post' && _id == '${postId}']{
           title,
           publishedAt,
+          sold,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }[0]`);
