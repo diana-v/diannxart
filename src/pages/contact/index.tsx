@@ -1,36 +1,66 @@
 import * as React from 'react';
 import * as Yup from 'yup';
 import cn from 'clsx';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { createClient } from 'next-sanity';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
 import styles from './contact.module.scss';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
-import { sendEmail } from '@/lib/sendgrid';
 
 interface Values {
     from: string;
-    text: string;
+    subject: string;
+    message: string;
 }
 
 interface PageProps {
     posts: string[];
 }
 
+enum AlertType {
+    Success = 'success',
+    Error = 'error',
+}
+
 const Contact: React.FC<PageProps> = ({ posts }) => {
     const { query } = useRouter();
-    const initialValues = { from: '', artwork: query.title, text: '' };
+    const [alert, setAlert] = React.useState({ message: '', type: '' });
+    const initialValues: Values = { from: '', subject: query.title?.toString() ?? 'General query', message: '' };
     const contactSchema = Yup.object().shape({
         from: Yup.string().email('Invalid email').required('Required'),
-        artwork: Yup.string().oneOf(posts),
-        text: Yup.string().min(2, 'Too Short!').max(900, 'Too Long!').required('Required'),
+        subject: Yup.string().oneOf([...posts, 'General query']),
+        message: Yup.string().min(2, 'Too Short!').max(900, 'Too Long!').required('Required'),
     });
 
-    const handleSubmit = React.useCallback(async ({ from, text }: Values) => {
-        await sendEmail({ from, text });
-    }, []);
+    const handleSubmit = React.useCallback(
+        async ({ from, subject, message }: Values, { resetForm }: FormikHelpers<Values>) => {
+            await fetch('/api/send-email', {
+                body: JSON.stringify({
+                    to: process.env.NEXT_PUBLIC_SENDGRID_EMAIL,
+                    from: process.env.NEXT_PUBLIC_SENDGRID_EMAIL,
+                    subject,
+                    text: `${from} ${message}`,
+                }),
+                method: 'POST',
+            }).then((res) => {
+                if (res.status === 500) {
+                    setAlert({ message: 'Ooops, something went wrong... Please try again later', type: 'error' });
+                }
+
+                if (res.status === 200) {
+                    setAlert({ message: 'Your enquiry has been sent!', type: 'success' });
+                }
+
+                return setTimeout(() => {
+                    resetForm();
+                    setAlert({ message: '', type: '' });
+                }, 5000);
+            });
+        },
+        []
+    );
 
     return (
         <DefaultLayout>
@@ -55,49 +85,61 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                                 </div>
                             </div>
                             <div className={styles.question}>
-                                <label className={styles.label} htmlFor="text">
+                                <label className={styles.label} htmlFor="subject">
                                     Artwork:
                                 </label>
                                 <div>
                                     <Field
-                                        className={cn(styles.field, { [styles.error]: errors.text })}
+                                        className={cn(styles.field, { [styles.error]: errors.subject })}
                                         component="select"
-                                        id="artwork"
-                                        name="artwork"
+                                        id="subject"
+                                        name="subject"
                                     >
-                                        <option value="">General query</option>
+                                        <option value="General query">General query</option>
                                         {posts.map((post) => (
                                             <option key={post} value={post}>
                                                 {post}
                                             </option>
                                         ))}
                                     </Field>
-                                    {errors.artwork && touched.artwork && (
-                                        <div className="text-red-700">{errors.artwork}</div>
+                                    {errors.subject && touched.subject && (
+                                        <div className="text-red-700">{errors.subject}</div>
                                     )}
                                 </div>
                             </div>
                             <div className={styles.question}>
-                                <label className={styles.label} htmlFor="text">
+                                <label className={styles.label} htmlFor="message">
                                     Enquiry:
                                 </label>
                                 <div>
                                     <Field
-                                        className={cn(styles.field, { [styles.error]: errors.text })}
-                                        id="text"
-                                        name="text"
+                                        className={cn(styles.field, { [styles.error]: errors.message })}
+                                        id="message"
+                                        name="message"
                                         component="textarea"
                                         rows="6"
                                         placeholder="Please write your enquiry here..."
                                         disabled={isSubmitting}
                                     />
-                                    {errors.text && touched.text && <div className="text-red-700">{errors.text}</div>}
+                                    {errors.message && touched.message && (
+                                        <div className="text-red-700">{errors.message}</div>
+                                    )}
                                 </div>
                             </div>
 
                             <button className={styles.submitButton} type="submit" disabled={isSubmitting || !dirty}>
                                 Submit
                             </button>
+                            {alert.message && (
+                                <div
+                                    className={cn(styles.alert, {
+                                        [styles.error]: alert.type === AlertType.Error,
+                                        [styles.success]: alert.type === AlertType.Success,
+                                    })}
+                                >
+                                    {alert.message}
+                                </div>
+                            )}
                         </Form>
                     )}
                 </Formik>
