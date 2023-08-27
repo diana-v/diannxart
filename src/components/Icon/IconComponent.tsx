@@ -3,7 +3,7 @@ import * as React from 'react';
 /**
  * @enum
  */
-enum Icons {
+export enum Icons {
     hamburger = 'hamburger',
 }
 
@@ -38,7 +38,7 @@ export const IconComponent: React.FC<ComponentProps & React.SVGProps<SVGSVGEleme
     if (!loading && ImportedIconRef.current) {
         const { current: ImportedIcon } = ImportedIconRef;
 
-        return <ImportedIcon {...rest} />;
+        return <ImportedIcon data-testid="iconComponent" {...rest} />;
     }
 
     return null;
