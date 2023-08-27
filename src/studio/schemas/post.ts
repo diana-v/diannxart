@@ -64,6 +64,15 @@ export default defineType({
             title: 'Price',
             type: 'string',
         }),
+        defineField({
+            name: 'dimensions',
+            title: 'Dimensions',
+            type: 'object',
+            fields: [
+                { name: 'width', type: 'number', title: 'Width' },
+                { name: 'height', type: 'number', title: 'Height' },
+            ],
+        }),
     ],
 
     preview: {

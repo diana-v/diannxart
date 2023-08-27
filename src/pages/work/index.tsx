@@ -7,6 +7,11 @@ import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import styles from './work.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
 
+type DimensionsType = {
+    width: number;
+    height: number;
+};
+
 interface PostData {
     id: string;
     title: string;
@@ -14,6 +19,7 @@ interface PostData {
     imageUrl: string;
     sold: boolean;
     price?: string;
+    dimensions?: DimensionsType;
 }
 interface PageProps {
     posts: PostData[];
@@ -46,6 +52,14 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                     <div className="flex w-full">
                                         <div className="flex flex-col flex-grow">
                                             <h2 className="text-2xl">{post?.title}</h2>
+                                            {post.dimensions && (
+                                                <p className="text-xl flex gap-2">
+                                                    <span>Dimensions:</span>
+                                                    <b>
+                                                        {post.dimensions.height}cm x {post.dimensions.width}cm
+                                                    </b>
+                                                </p>
+                                            )}
                                             <p className="text-xl">{post?.subtitle}</p>
                                         </div>
                                         {post.price && !post.sold && (
@@ -76,6 +90,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           subtitle,
           sold,
           price,
+          dimensions,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }`

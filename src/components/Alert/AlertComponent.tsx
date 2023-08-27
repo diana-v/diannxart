@@ -8,19 +8,23 @@ export enum AlertType {
     Error = 'error',
 }
 
-interface ComponentProperties {
+interface ComponentProps {
     color: AlertType;
     message: string;
     className?: string;
 }
 
-export const AlertComponent: React.FC<ComponentProperties> = ({ color, message, className }) => {
+export const AlertComponent: React.FC<ComponentProps> = ({ color, message, className }) => {
     const wrapperClass = cn({
         [styles.success]: color === AlertType.Success,
         [styles.error]: color === AlertType.Error,
     });
 
-    return <div className={`${className} ${wrapperClass}`}>{message}</div>;
+    return (
+        <div data-testid="alertComponent" className={`${className} ${wrapperClass}`}>
+            {message}
+        </div>
+    );
 };
 
 AlertComponent.displayName = 'AlertComponent';
