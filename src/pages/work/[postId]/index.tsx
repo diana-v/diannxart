@@ -8,6 +8,11 @@ import { FooterContainer } from '@/containers/Footer/FooterContainer';
 import styles from './post.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
 
+type DimensionsType = {
+    width: number;
+    height: number;
+};
+
 interface PostData {
     id: string;
     title: string;
@@ -16,6 +21,7 @@ interface PostData {
     publishedAt?: string;
     imageUrl: string;
     sold: boolean;
+    dimensions?: DimensionsType;
 }
 
 interface PageProps {
@@ -42,6 +48,14 @@ const Post: NextPage<PageProps> = ({ post }) => {
                             <p className="text-2xl flex gap-2">
                                 <span>Year:</span>
                                 <b>{publishingYear}</b>
+                            </p>
+                        )}
+                        {post.dimensions && (
+                            <p className="text-2xl flex gap-2">
+                                <span>Dimensions:</span>
+                                <b>
+                                    {post.dimensions.height}cm x {post.dimensions.width}cm
+                                </b>
                             </p>
                         )}
                         <p className="text-2xl">{post.subtitle}</p>
@@ -81,6 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           publishedAt,
           sold,
           price,
+          dimensions,
           "id": _id,
           "imageUrl": mainImage.asset->url
       }[0]`);

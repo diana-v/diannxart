@@ -3,7 +3,7 @@
 }
 
 .description {
-    @apply flex flex-col items-center;
+    @apply flex flex-col items-center max-w-6xl;
 }
 
 .title {
@@ -15,7 +15,6 @@
     @apply px-6 py-2 absolute top-8 right-0 bg-white border-black border-r-0 rounded-r-none rounded-md;
     @apply text-xl md:text-2xl uppercase font-bold tracking-wider;
 }
-
 
 .buttonContainer {
     @apply container mx-auto px-4 py-2 w-full bg-white sticky bottom-0 flex justify-center;
