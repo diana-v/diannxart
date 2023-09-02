@@ -25,25 +25,29 @@ export const HeaderContainer: React.FC = () => {
             <Link href={'/work'} className="font-display text-3xl leading-[3.5rem]">
                 diann x art
             </Link>
-            <button className="block md:hidden w-6 h-6 text-grey-400 hover:text-black" onClick={handleShowMenu}>
+            <button
+                className="block md:hidden w-6 h-6 text-grey-600 hover:text-black"
+                onClick={handleShowMenu}
+                aria-label="Navigation"
+            >
                 <IconComponent name="hamburger" />
             </button>
             <div className={`${showMenu ? 'max-h-[124px]' : 'max-h-[0px]'} ${styles.linkContainer}`}>
                 <Link
                     href={'/work'}
-                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.Work })}
+                    className={cn('text-grey-600 hover:text-black', { 'text-black': asPath === Pages.Work })}
                 >
                     Work
                 </Link>
                 <Link
                     href={'/about'}
-                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.About })}
+                    className={cn('text-grey-600 hover:text-black', { 'text-black': asPath === Pages.About })}
                 >
                     About
                 </Link>
                 <Link
                     href={'/contact'}
-                    className={cn('text-grey-400 hover:text-black', { 'text-black': asPath === Pages.Contact })}
+                    className={cn('text-grey-600 hover:text-black', { 'text-black': asPath === Pages.Contact })}
                 >
                     Contact
                 </Link>

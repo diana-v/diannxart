@@ -131,7 +131,12 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                                 </div>
                             </div>
 
-                            <button className={styles.submitButton} type="submit" disabled={isSubmitting || !dirty}>
+                            <button
+                                className={styles.submitButton}
+                                type="submit"
+                                disabled={isSubmitting || !dirty}
+                                aria-label="Submit form"
+                            >
                                 Submit
                             </button>
                             {alert.message && <AlertComponent color={alert.type} message={alert.message} />}

@@ -69,7 +69,12 @@ const Post: NextPage<PageProps> = ({ post }) => {
                 </div>
                 {!post.sold && (
                     <div className={styles.buttonContainer}>
-                        <button type="button" onClick={handleClick} className={styles.button}>
+                        <button
+                            type="button"
+                            onClick={handleClick}
+                            className={styles.button}
+                            aria-label={`Enquire about ${post.title}`}
+                        >
                             Enquire
                         </button>
                     </div>
