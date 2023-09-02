@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
@@ -39,6 +40,10 @@ const Post: NextPage<PageProps> = ({ post }) => {
 
     return (
         <>
+            <Head>
+                <title>{`${post.title} | DiannXArt`}</title>
+                <meta name="description" content={post.subtitle} />
+            </Head>
             <HeaderContainer />
             <>
                 <div className={styles.root}>

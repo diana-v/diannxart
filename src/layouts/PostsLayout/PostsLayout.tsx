@@ -9,7 +9,10 @@ interface ComponentProps {
 
 export const PostsLayout: React.FC<ComponentProps> = ({ children }) => {
     return (
-        <DefaultLayout>
+        <DefaultLayout
+            title="Work | DiannXArt"
+            description="A carefully curated selection of the best art projects made by diann x art studio."
+        >
             <>
                 <div className="container flex justify-between flex-col md:flex-row mx-auto px-4 py-3">
                     <h1 className={styles.title}>Studio</h1>
