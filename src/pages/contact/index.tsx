@@ -67,7 +67,7 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
     );
 
     return (
-        <DefaultLayout>
+        <DefaultLayout title="Contact | DiannXArt" description="Get in touch for your custom artwork">
             <div className="container flex flex-col mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
                 <h1 className={styles.title}>Contact</h1>
                 <Formik initialValues={initialValues} validationSchema={contactSchema} onSubmit={handleSubmit}>

@@ -1,5 +1,10 @@
+const withPWA = require("next-pwa")({
+    dest: 'public',
+    disable: process.env.NODE_ENV !== "production",
+});
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withPWA({
     reactStrictMode: true,
     images: {
         domains: ['cdn.sanity.io']
@@ -32,4 +37,4 @@ module.exports = {
 
         return config
     },
-}
+});
