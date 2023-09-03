@@ -9,6 +9,7 @@
     "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:jest/recommended",
+    "plugin:playwright/recommended",
     "plugin:@next/next/recommended",
     "prettier"
   ],
@@ -170,5 +171,15 @@
         "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.tsx"
+      ],
+      "rules": {
+        "playwright/missing-playwright-await": "off"
+      }
+    }
+  ]
 }
