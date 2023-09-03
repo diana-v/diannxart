@@ -9,6 +9,7 @@
     "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:jest/recommended",
+    "plugin:playwright/recommended",
     "plugin:@next/next/recommended",
     "prettier"
   ],
