@@ -93,7 +93,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           dimensions,
           "id": _id,
           "imageUrl": mainImage.asset->url
-      }`
+      } | order(sold desc)`
     );
 
     return {
