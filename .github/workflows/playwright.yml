@@ -17,8 +17,6 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
-      - name: Build sanity
-        run: npm run sanity:build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
