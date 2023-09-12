@@ -9,6 +9,22 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
+      - name: Use variables
+        run: |
+          echo "sendgrid api key : $NEXT_PUBLIC_SENDGRID_API_KEY"
+          echo "sendgrid email : $NEXT_PUBLIC_SENDGRID_EMAIL"
+          echo "sanity studio api version : $SANITY_STUDIO_API_VERSION"
+          echo "sanity studio dataset : $SANITY_STUDIO_DATASET"
+          echo "sanity studio project id : $SANITY_STUDIO_PROJECT_ID"
+          echo "sanity studio title : $SANITY_STUDIO_TITLE"
+        env:
+          NEXT_PUBLIC_SENDGRID_API_KEY: ${{ vars.NEXT_PUBLIC_SENDGRID_API_KEY }}
+          NEXT_PUBLIC_SENDGRID_EMAIL: ${{ vars.NEXT_PUBLIC_SENDGRID_EMAIL }}
+          SANITY_STUDIO_API_VERSION: ${{ vars.SANITY_STUDIO_API_VERSION }}
+          SANITY_STUDIO_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+          SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_STUDIO_PROJECT_ID }}
+          SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
+
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
