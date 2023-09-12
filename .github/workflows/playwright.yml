@@ -31,11 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build project
-        run: npm run build
+        run: env NODE_ENV=test npm run build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npm run test:e2e
+        run: env NODE_ENV=test npm run test:e2e
       - uses: actions/upload-artifact@v3
         if: always()
         with:
