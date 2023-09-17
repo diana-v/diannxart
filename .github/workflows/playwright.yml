@@ -9,6 +9,17 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: test
+    env:
+      SANITY_STUDIO_PROJECT_ID: ${{ env.SANITY_STUDIO_PROJECT_ID }}
+      SANITY_STUDIO_DATASET: ${{ env.SANITY_STUDIO_DATASET }}
+      SANITY_STUDIO_API_VERSION: ${{ env.SANITY_STUDIO_API_VERSION }}
+      SANITY_STUDIO_TITLE: ${{ env.SANITY_STUDIO_TITLE }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ env.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: ${{ env.NEXT_PUBLIC_SANITY_DATASET }}
+      NEXT_PUBLIC_SANITY_API_VERSION: ${{ env.NEXT_PUBLIC_SANITY_API_VERSION }}
+      NEXT_PUBLIC_SANITY_TITLE: ${{ env.NEXT_PUBLIC_SANITY_TITLE }}
+      NEXT_PUBLIC_SENDGRID_API_KEY: ${{ env.NEXT_PUBLIC_SENDGRID_API_KEY }}
+      NEXT_PUBLIC_SENDGRID_EMAIL: ${{ env.NEXT_PUBLIC_SENDGRID_EMAIL }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
