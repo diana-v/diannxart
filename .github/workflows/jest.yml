@@ -5,11 +5,11 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  env:
-    CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
-    CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
   test:
     runs-on: ubuntu-latest
+    env:
+      CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
+      CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
