@@ -26,3 +26,8 @@ $grey50: #f1f3f4 !default;
 /* Utility colours */
 $white: #fff !default;
 $black: #000 !default;
+
+
+/* react-image-gallery var overrides */
+$ig-white: rgba(255,255,255, 0.6);
+$ig-blue: $white;
