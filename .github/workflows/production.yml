@@ -61,9 +61,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: "${{ github.event.deployment_status.deployment.ref }}"
-          fetch-depth: 0
       - name: Set branch name
         run: echo "CHECKLY_TEST_REPO_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_ENV
       - uses: actions/setup-node@v3
