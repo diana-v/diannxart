@@ -3,7 +3,7 @@ import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-// import ImageGallery from 'react-image-gallery';
+import ImageGallery from 'react-image-gallery';
 
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
@@ -74,15 +74,18 @@ const Post: NextPage<PageProps> = ({ post }) => {
                     </div>
 
                     <div className="overflow-hidden rounded-md relative">
-                        <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
-                        {/*<ImageGallery*/}
-                        {/*    items={post.images}*/}
-                        {/*    showFullscreenButton={false}*/}
-                        {/*    showPlayButton={false}*/}
-                        {/*    showBullets={post.images.length > 1}*/}
-                        {/*    showThumbnails={false}*/}
-                        {/*    additionalClass={styles.imageGallery}*/}
-                        {/*/>*/}
+                        {post.images ? (
+                            <ImageGallery
+                                items={post.images}
+                                showFullscreenButton={false}
+                                showPlayButton={false}
+                                showBullets={post.images.length > 1}
+                                showThumbnails={false}
+                                additionalClass={styles.imageGallery}
+                            />
+                        ) : (
+                            <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
+                        )}
                         {post.sold && <div className={styles.label}>Sold</div>}
                         {post.price && !post.sold && <div className={styles.label}>{post.price}</div>}
                     </div>
@@ -123,7 +126,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           dimensions,
           "id": _id,
           "imageUrl": mainImage.asset->url,
-          images
+          "images": images[] {
+            "original": asset->url,
+            "originalAlt": alt
+          }
       }[0]`);
 
     return {
