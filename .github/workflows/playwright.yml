@@ -20,8 +20,8 @@ jobs:
       NEXT_PUBLIC_SANITY_TITLE: ${{ vars.NEXT_PUBLIC_SANITY_TITLE }}
       NEXT_PUBLIC_SENDGRID_API_KEY: ${{ vars.NEXT_PUBLIC_SENDGRID_API_KEY }}
       NEXT_PUBLIC_SENDGRID_EMAIL: ${{ vars.NEXT_PUBLIC_SENDGRID_EMAIL }}
-      CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
-      CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
+      CHECKLY_API_KEY: ${{ vars.CHECKLY_API_KEY }}
+      CHECKLY_ACCOUNT_ID: ${{ vars.CHECKLY_ACCOUNT_ID }}
       ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
       CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
     steps:
