@@ -54,7 +54,7 @@ jobs:
           name: playwright-report
           path: e2e/playwright-report/
           retention-days: 30
-  generate_report:
+  checkly:
     needs: [unit_test, e2e_test]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -77,9 +77,6 @@ jobs:
       - name: Run checks
         id: run-checks
         run: npx checkly test -e ENVIRONMENT_URL=${{ env.ENVIRONMENT_URL }} --reporter=github --record
-      - name: Create summary
-        id: create-summary
-        run: cat checkly-github-report.md > $GITHUB_STEP_SUMMARY
       - name: Deploy checks
         id: deploy-checks
         if: steps.run-checks.outcome == 'success' && github.event.deployment_status.environment == 'Production'
