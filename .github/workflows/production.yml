@@ -1,4 +1,4 @@
-name: playwright
+name: production
 on:
   push:
     branches: master
@@ -55,7 +55,7 @@ jobs:
           path: e2e/playwright-report/
           retention-days: 30
   generate_report:
-    if: github.event.deployment_status.state == 'success'
+    needs: [unit_test, e2e_test]
     name: Checkly
     runs-on: ubuntu-latest
     steps:
