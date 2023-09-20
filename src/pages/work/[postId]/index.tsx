@@ -75,16 +75,14 @@ const Post: NextPage<PageProps> = ({ post }) => {
                     </div>
 
                     <div className="overflow-hidden rounded-md relative">
-                        {post.images && (
-                            <ImageGallery
-                                items={images}
-                                showFullscreenButton={false}
-                                showPlayButton={false}
-                                showBullets={post.images.length > 1}
-                                showThumbnails={false}
-                                additionalClass={styles.imageGallery}
-                            />
-                        )}
+                        <ImageGallery
+                            items={images}
+                            showFullscreenButton={false}
+                            showPlayButton={false}
+                            showBullets={images.length > 1}
+                            showThumbnails={false}
+                            additionalClass={styles.imageGallery}
+                        />
                         {post.sold && <div className={styles.label}>Sold</div>}
                         {post.price && !post.sold && <div className={styles.label}>{post.price}</div>}
                     </div>
@@ -124,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           price,
           dimensions,
           "id": _id,
-          "imageUrl": mainImage.asset->url,
+          "imageUrl": mainImage.asset->url
       }[0]`);
 
     return {
