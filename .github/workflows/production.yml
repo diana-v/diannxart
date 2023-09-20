@@ -55,10 +55,12 @@ jobs:
           path: e2e/playwright-report/
           retention-days: 30
   generate_report:
-    - name: Create summary
-      id: create-summary
-      run: cat checkly-github-report.md > $GITHUB_STEP_SUMMARY
-    - name: Deploy checks
-      id: deploy-checks
-      if: steps.run-checks.outcome == 'success' && github.event.deployment_status.environment == 'Production'
-      run: npx checkly deploy --force
+    - runs-on: ubuntu-latest
+      steps:
+      - name: Create summary
+        id: create-summary
+        run: cat checkly-github-report.md > $GITHUB_STEP_SUMMARY
+      - name: Deploy checks
+        id: deploy-checks
+        if: steps.run-checks.outcome == 'success' && github.event.deployment_status.environment == 'Production'
+        run: npx checkly deploy --force
