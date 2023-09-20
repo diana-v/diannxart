@@ -9,7 +9,7 @@ env:
 jobs:
   test-e2e:
     if: github.event.deployment_status.state == 'success'
-    name: Test E2E on Checkly
+    name: Checkly
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -21,7 +21,7 @@ jobs:
         run: echo "CHECKLY_TEST_REPO_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_ENV
       - uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 18
       - name: Restore or cache node_modules
         id: cache-node-modules
         uses: actions/cache@v3
