@@ -1,9 +1,9 @@
 name: CI/CD
 on:
   push:
-    branches: '**'
+    branches: [master, develop]
   pull_request:
-    branches: '**'
+    branches: [master, develop]
 
 env:
   SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_STUDIO_PROJECT_ID }}
