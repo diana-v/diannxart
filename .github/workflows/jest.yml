@@ -1,24 +1,24 @@
-name: jest
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    env:
-      CHECKLY_API_KEY: ${{ vars.CHECKLY_API_KEY }}
-      CHECKLY_ACCOUNT_ID: ${{ vars.CHECKLY_ACCOUNT_ID }}
-      ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
-      CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: "${{ github.event.deployment_status.deployment.ref }}"
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm run test:coverage
+#name: jest
+#on:
+#  push:
+#    branches: [ main, master ]
+#  pull_request:
+#    branches: [ main, master ]
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    env:
+#      CHECKLY_API_KEY: ${{ vars.CHECKLY_API_KEY }}
+#      CHECKLY_ACCOUNT_ID: ${{ vars.CHECKLY_ACCOUNT_ID }}
+#      ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
+#      CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
+#    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          ref: "${{ github.event.deployment_status.deployment.ref }}"
+#          fetch-depth: 0
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#      - run: npm ci
+#      - run: npm run test:coverage

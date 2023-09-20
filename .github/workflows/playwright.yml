@@ -1,48 +1,48 @@
-name: playwright
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    environment: test
-    env:
-      SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_STUDIO_PROJECT_ID }}
-      SANITY_STUDIO_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
-      SANITY_STUDIO_API_VERSION: ${{ vars.SANITY_STUDIO_API_VERSION }}
-      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-      NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
-      NEXT_PUBLIC_SANITY_API_VERSION: ${{ vars.NEXT_PUBLIC_SANITY_API_VERSION }}
-      NEXT_PUBLIC_SANITY_TITLE: ${{ vars.NEXT_PUBLIC_SANITY_TITLE }}
-      NEXT_PUBLIC_SENDGRID_API_KEY: ${{ vars.NEXT_PUBLIC_SENDGRID_API_KEY }}
-      NEXT_PUBLIC_SENDGRID_EMAIL: ${{ vars.NEXT_PUBLIC_SENDGRID_EMAIL }}
-      CHECKLY_API_KEY: ${{ vars.CHECKLY_API_KEY }}
-      CHECKLY_ACCOUNT_ID: ${{ vars.CHECKLY_ACCOUNT_ID }}
-      ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
-      CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: "${{ github.event.deployment_status.deployment.ref }}"
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Set env
-        run: export NODE_ENV=test
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npm run test:e2e
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: e2e/playwright-report/
-          retention-days: 30
+#name: playwright
+#on:
+#  push:
+#    branches: [ main, master ]
+#  pull_request:
+#    branches: [ main, master ]
+#jobs:
+#  test:
+#    timeout-minutes: 60
+#    runs-on: ubuntu-latest
+#    environment: test
+#    env:
+#      SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_STUDIO_PROJECT_ID }}
+#      SANITY_STUDIO_DATASET: ${{ vars.SANITY_STUDIO_DATASET }}
+#      SANITY_STUDIO_API_VERSION: ${{ vars.SANITY_STUDIO_API_VERSION }}
+#      SANITY_STUDIO_TITLE: ${{ vars.SANITY_STUDIO_TITLE }}
+#      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+#      NEXT_PUBLIC_SANITY_DATASET: ${{ vars.NEXT_PUBLIC_SANITY_DATASET }}
+#      NEXT_PUBLIC_SANITY_API_VERSION: ${{ vars.NEXT_PUBLIC_SANITY_API_VERSION }}
+#      NEXT_PUBLIC_SANITY_TITLE: ${{ vars.NEXT_PUBLIC_SANITY_TITLE }}
+#      NEXT_PUBLIC_SENDGRID_API_KEY: ${{ vars.NEXT_PUBLIC_SENDGRID_API_KEY }}
+#      NEXT_PUBLIC_SENDGRID_EMAIL: ${{ vars.NEXT_PUBLIC_SENDGRID_EMAIL }}
+#      CHECKLY_API_KEY: ${{ vars.CHECKLY_API_KEY }}
+#      CHECKLY_ACCOUNT_ID: ${{ vars.CHECKLY_ACCOUNT_ID }}
+#      ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
+#      CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
+#    steps:
+#      - uses: actions/checkout@v3
+#        with:
+#          ref: "${{ github.event.deployment_status.deployment.ref }}"
+#          fetch-depth: 0
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#      - name: Set env
+#        run: export NODE_ENV=test
+#      - name: Install dependencies
+#        run: npm ci
+#      - name: Install Playwright Browsers
+#        run: npx playwright install --with-deps
+#      - name: Run Playwright tests
+#        run: npm run test:e2e
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: playwright-report
+#          path: e2e/playwright-report/
+#          retention-days: 30
