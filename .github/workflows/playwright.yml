@@ -22,12 +22,16 @@ jobs:
       NEXT_PUBLIC_SENDGRID_EMAIL: ${{ vars.NEXT_PUBLIC_SENDGRID_EMAIL }}
       CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
       CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
+      ENVIRONMENT_URL: ${{ github.event.deployment_status.environment_url }}
+      CHECKLY_TEST_ENVIRONMENT: ${{ github.event.deployment_status.environment }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: "${{ github.event.deployment_status.deployment.ref }}"
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-
       - name: Set env
         run: export NODE_ENV=test
       - name: Install dependencies
