@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
+  env:
+    CHECKLY_API_KEY: ${{ secrets.CHECKLY_API_KEY }}
+    CHECKLY_ACCOUNT_ID: ${{ secrets.CHECKLY_ACCOUNT_ID }}
   test:
     runs-on: ubuntu-latest
     steps:
