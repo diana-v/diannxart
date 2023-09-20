@@ -26,6 +26,7 @@ By introducing new Environment variables or modifying existing one please read b
 4. Application ENV variables must be prefixed with `NEXT_`
 5. Sanity ENV variables must be prefixed with `SANITY_STUDIO_`. If you want to expose them to the client in production environment please create another env variable with the `NEXT_PUBLIC` prefix and import it via `process.env` instead of `import.meta.env`.
 6. Unit tests and e2e tests are run through github actions
+7. Results of tests are reported to Checkly
 
    > ⚠️ **Attention!** Only ENV variables added to Vercel will have effect after deployment.
 
@@ -45,6 +46,7 @@ By introducing new Environment variables or modifying existing one please read b
 -   [SASS + css module](https://sass-lang.com) - css preprocessor
 -   [Jest](https://jestjs.io/) - Unit tests
 -   [Playwright](https://playwright.dev/) - e2e tests
+-   [Checkly](https://www.checklyhq.com/) - Checkly
 
 ## Important information
 1. Sanity studio dev server only runs error free when environment variables are loaded using VITE's convention `import.meta.env.KEY`. Please see [sanity.config.ts](sanity.config.ts)
