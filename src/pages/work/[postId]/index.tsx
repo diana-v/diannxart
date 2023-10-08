@@ -74,14 +74,13 @@ const Post: NextPage<PageProps> = ({ post }) => {
                     </div>
 
                     <div className="overflow-hidden rounded-md relative">
-                        {post.images ? (
+                        {post.images.length > 0 ? (
                             <ImageGallery
                                 items={post.images}
                                 showFullscreenButton={false}
                                 showPlayButton={false}
                                 showBullets={post.images.length > 1}
                                 showThumbnails={false}
-                                additionalClass={styles.imageGallery}
                             />
                         ) : (
                             <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
