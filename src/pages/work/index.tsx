@@ -91,9 +91,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
           sold,
           price,
           dimensions,
+          orderRank,
           "id": _id,
           "imageUrl": mainImage.asset->url
-      } | order(sold desc)`
+      } | order(orderRank)`
     );
 
     return {

@@ -98,6 +98,12 @@ export default defineType({
                 { name: 'height', type: 'number', title: 'Height' },
             ],
         }),
+        defineField({
+            name: 'orderRank',
+            title: 'Order rank',
+            type: 'string',
+            hidden: true,
+        }),
     ],
 
     preview: {
