@@ -18,7 +18,7 @@ module.exports = withPWA({
             },
             {
                 source: '/studio',
-                destination: '/structure',
+                destination: '/studio/desk',
                 permanent: true
             }
         ];
