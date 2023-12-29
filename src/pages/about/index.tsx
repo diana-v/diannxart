@@ -7,24 +7,24 @@ const About: React.FC = () => {
     return (
         <DefaultLayout
             title="About | DiannXArt"
-            description="Whether it's a personalized portrait, a reinterpretation
-                        of a masterpiece, or a unique creation inspired by your ideas, we can turn your imagination into
-                        a reality."
+            description="DiannXArt is a personal website of Diana, an artist from Lithuania.
+                        Here you can find her artworks and contact information."
         >
             <div className="container flex flex-col mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
                 <h1 className={styles.title}>About</h1>
                 <article className="flex flex-col gap-4 text-xl md:text-2xl">
                     <p>
-                        Art has the power to transform your surroundings into a haven of beauty, and spark inspiration.
-                        Whether you're looking to infuse your living room with an air of elegance, create a soothing
-                        atmosphere in your bedroom, or add a splash of creativity to your office, our paintings are the
-                        perfect complement to your vision.
+                        In childhood, I was a very artistic person – weaving, ceramics, and art were my main activities.
+                        I delved deeper into art when the opportunity arose to learn painting from Leonas Ernestas
+                        Juozonis (a sculptor and artist) in exchange for computer lessons. After moving to the United
+                        Kingdom, this activity transformed into pencil drawings of anime. After a decade, upon returning
+                        to Lithuania, motivated by loved ones, I rediscovered painting. Currently, it is a cherished
+                        hobby that allows me to immerse myself in memories and escape the routine.
                     </p>
                     <p>
-                        Can't find the exact piece you're envisioning? Please get in touch to get your custom commission
-                        and bring your artistic dreams to life. Whether it's a personalized portrait, a reinterpretation
-                        of a masterpiece, or a unique creation inspired by your ideas, we can turn your imagination into
-                        a reality.
+                        The inspiration to create, as for many, is love. Although I was not always fascinated by
+                        mountains or a starry sky, now it is a common motif in my paintings. When traveling, I strive to
+                        be surrounded by the beauty of mountains and nature, finding inspiration for new artworks there.
                     </p>
                 </article>
             </div>
