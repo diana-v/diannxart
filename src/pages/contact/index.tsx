@@ -39,8 +39,6 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
         async ({ from, subject, message }: Values, { resetForm }: FormikHelpers<Values>) => {
             await fetch('/api/send-email', {
                 body: JSON.stringify({
-                    to: process.env.NEXT_PUBLIC_SENDGRID_EMAIL,
-                    from: process.env.NEXT_PUBLIC_SENDGRID_EMAIL,
                     subject,
                     text: `${from} ${message}`,
                 }),
