@@ -7,8 +7,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         await sendgrid.send({
-            to: `${body.to}`,
-            from: `${body.from}`,
+            to: `${process.env.NEXT_PUBLIC_SENDGRID_EMAIL}`,
+            from: `${process.env.NEXT_PUBLIC_SENDGRID_EMAIL}`,
             subject: `${body.subject}`,
             text: `${body.text}`,
         });

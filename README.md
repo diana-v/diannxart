@@ -8,7 +8,7 @@ It is deployed using Vercel to the following domains:
 
 ## Setup
 
-1. Install Node LTS (the latest working version v18.16.0)
+1. Install Node LTS (the latest working version v20.10.0)
 2. Copy file `.env` to `env.development.local`
 3. Go to https://www.sanity.io/ and grab secrets
 4. Go to https://app.sendgrid.com/ and grab secrets
