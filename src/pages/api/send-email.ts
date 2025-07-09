@@ -1,16 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import sendgrid from '@sendgrid/mail';
+import { Resend } from 'resend';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    sendgrid.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY ?? '');
+    const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY ?? '');
+
     const body = JSON.parse(req.body);
 
     try {
-        await sendgrid.send({
-            to: `${process.env.NEXT_PUBLIC_SENDGRID_EMAIL}`,
-            from: `${process.env.NEXT_PUBLIC_SENDGRID_EMAIL}`,
+        await resend.emails.send({
+            from: `${process.env.NEXT_PUBLIC_RESEND_FROM_EMAIL}`,
+            to: `${process.env.NEXT_PUBLIC_RESEND_TO_EMAIL}`,
             subject: `${body.subject}`,
-            text: `${body.text}`,
+            html: `<p>${body.text}</p>`,
         });
 
         return res.status(200).send('Email sent successfully');
