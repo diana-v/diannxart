@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { Resend } from 'resend';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY ?? '');
+    const resend = new Resend(process.env.RESEND_API_KEY ?? '');
 
     const body = JSON.parse(req.body);
 
