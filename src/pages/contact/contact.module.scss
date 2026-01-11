@@ -1,38 +1,38 @@
 .title {
-  @apply uppercase text-5xl md:text-7xl font-serif font-thin text-center;
-  @apply transition-[font-size] ease-in duration-500;
+    @apply uppercase text-5xl md:text-7xl font-serif font-thin text-center;
+    @apply transition-[font-size] ease-in duration-500;
 }
 
 .form {
-  @apply flex flex-col flex-grow gap-6;
+    @apply flex flex-col flex-grow gap-6;
 }
 
 .question {
-  @apply flex flex-col gap-2;
+    @apply flex flex-col gap-2;
 }
 
 .label {
-  @apply text-xl md:text-2xl;
+    @apply text-xl md:text-2xl;
 }
 
 .field {
-  @apply rounded border w-full p-2 bg-transparent;
-  @apply text-lg md:text-xl;
+    @apply rounded border w-full p-2 bg-transparent;
+    @apply text-lg md:text-xl;
 
-  &:disabled {
-    @apply text-grey-300 border-grey-100 cursor-not-allowed;
-  }
+    &:disabled {
+        @apply text-grey-300 border-grey-100 cursor-not-allowed;
+    }
 
-  &.error {
-    @apply text-red-700 border-red-400;
-  }
+    &.error {
+        @apply text-red-700 border-red-400;
+    }
 }
 
 .submitButton {
-  @apply px-4 py-2 w-full rounded-md shadow-lg border border-black bg-black cursor-pointer;
-  @apply text-xl md:text-2xl text-white uppercase font-bold tracking-wider;
+    @apply px-4 py-2 w-full rounded-md shadow-lg border border-black bg-black cursor-pointer;
+    @apply text-xl md:text-2xl text-white uppercase font-bold tracking-wider;
 
-  &:disabled {
-    @apply text-grey-300 bg-grey-50 border-grey-100 cursor-not-allowed;
-  }
+    &:disabled {
+        @apply text-grey-300 bg-grey-50 border-grey-100 cursor-not-allowed;
+    }
 }
