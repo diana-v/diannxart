@@ -75,7 +75,7 @@ const Post: NextPage<PageProps> = ({ post }) => {
                         )}
                         {post?.body && (
                             <div className="text-2xl mt-4">
-                                <RichTextComponent content={post.body} classNames={{ root: 'flex flex-col gap-2'}} />
+                                <RichTextComponent content={post.body} classNames={{ root: 'flex flex-col gap-2' }} />
                             </div>
                         )}
                     </div>
