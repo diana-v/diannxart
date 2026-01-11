@@ -18,6 +18,9 @@
     "test:e2e:watch": "playwright test --ui"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.2",
+    "@portabletext/types": "^4.0.1",
+    "@sanity/asset-utils": "^2.3.0",
     "@sanity/cli": "^3.3.0",
     "@sanity/orderable-document-list": "^1.1.0",
     "@sanity/vision": "^3.3.0",
