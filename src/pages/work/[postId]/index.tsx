@@ -4,11 +4,13 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import ImageGallery from 'react-image-gallery';
+import { TypedObject } from '@portabletext/types';
 
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
 import styles from './post.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
+import { RichTextComponent } from '@/components/RichText/RichTextComponent';
 
 type ImagesType = {
     original: string;
@@ -30,6 +32,7 @@ interface PostData {
     images: ImagesType[];
     sold: boolean;
     dimensions?: DimensionsType;
+    body?: TypedObject | TypedObject[];
 }
 
 interface PageProps {
@@ -70,7 +73,11 @@ const Post: NextPage<PageProps> = ({ post }) => {
                                 </b>
                             </p>
                         )}
-                        <p className="text-2xl">{post.subtitle}</p>
+                        {post?.body && (
+                            <div className="text-2xl mt-4">
+                                <RichTextComponent content={post.body} classNames={{ root: 'flex flex-col gap-2'}} />
+                            </div>
+                        )}
                     </div>
 
                     <div className="overflow-hidden rounded-md relative">
@@ -123,6 +130,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           sold,
           price,
           dimensions,
+          body,
           "id": _id,
           "imageUrl": mainImage.asset->url,
           "images": images[] {
