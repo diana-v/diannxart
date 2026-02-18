@@ -7,6 +7,12 @@ import styles from './headerContainer.module.scss';
 import { IconComponent } from '@/components/Icon/IconComponent';
 import { languages, LocaleType } from '@/translations/common';
 
+enum Pages {
+    Work = '/work',
+    About = '/about',
+    Contact = '/contact',
+}
+
 export const HeaderContainer: React.FC = () => {
     const { asPath, locale, defaultLocale, push } = useRouter();
     const [showMenu, setShowMenu] = React.useState(false);
@@ -24,7 +30,7 @@ export const HeaderContainer: React.FC = () => {
 
     return (
         <nav className={styles.root}>
-            <Link href={localisedString.paths.work} className="font-display text-3xl leading-[3.5rem]">
+            <Link href={'/work'} className="font-display text-3xl leading-[3.5rem]">
                 diann x art
             </Link>
             <button
@@ -36,25 +42,25 @@ export const HeaderContainer: React.FC = () => {
             </button>
             <div className={`${showMenu ? 'max-h-[144px]' : 'max-h-[0px]'} ${styles.linkContainer}`}>
                 <Link
-                    href={localisedString.paths.work}
+                    href="/work"
                     className={cn('text-grey-600 hover:text-black', {
-                        'text-black': asPath === localisedString.paths.work,
+                        'text-black': asPath === Pages.Work,
                     })}
                 >
                     {localisedString.navigation.work}
                 </Link>
                 <Link
-                    href={localisedString.paths.about}
+                    href="/about"
                     className={cn('text-grey-600 hover:text-black', {
-                        'text-black': asPath === localisedString.paths.about,
+                        'text-black': asPath === Pages.About,
                     })}
                 >
                     {localisedString.navigation.about}
                 </Link>
                 <Link
-                    href={localisedString.paths.contact}
+                    href="/contact"
                     className={cn('text-grey-600 hover:text-black', {
-                        'text-black': asPath === localisedString.paths.contact,
+                        'text-black': asPath === Pages.Contact,
                     })}
                 >
                     {localisedString.navigation.contact}

@@ -42,7 +42,7 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                 <Link
                                     href={{
                                         pathname: '/work/[postId]',
-                                        query: { postId: post.slug },
+                                        query: { postId: post.id },
                                     }}
                                 >
                                     <div className={styles.imageContainer}>

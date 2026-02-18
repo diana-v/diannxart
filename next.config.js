@@ -13,27 +13,11 @@ module.exports = withPWA({
         locales: ['lt', 'en'],
         defaultLocale: 'lt',
     },
-    async rewrites() {
-        return [
-            {
-                source: '/darbai',
-                destination: '/work',
-            },
-            {
-                source: '/apie',
-                destination: '/about',
-            },
-            {
-                source: '/kontaktai',
-                destination: '/contact',
-            },
-        ];
-    },
     async redirects() {
         return [
             {
                 source: '/',
-                destination: '/darbai',
+                destination: '/work',
                 permanent: true
             },
             {
