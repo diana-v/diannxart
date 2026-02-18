@@ -2,11 +2,6 @@ export type LocaleType = 'en' | 'lt';
 
 export const languages = {
     en: {
-        paths: {
-            work: '/work',
-            about: '/about',
-            contact: '/contact',
-        },
         navigation: {
             work: 'Work',
             about: 'About',
@@ -58,11 +53,6 @@ export const languages = {
         },
     },
     lt: {
-        paths: {
-            work: '/darbai',
-            about: '/apie',
-            contact: '/kontaktai',
-        },
         navigation: {
             work: 'Darbai',
             about: 'Apie',

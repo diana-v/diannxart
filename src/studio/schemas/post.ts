@@ -18,7 +18,11 @@ export default defineType({
         defineField({
             name: 'slug',
             title: 'Slug',
-            type: 'localeSlug',
+            type: 'slug',
+            options: {
+                source: (doc: any) => doc?.title?.en,
+                maxLength: 96,
+            },
         }),
         defineField({
             name: 'author',
