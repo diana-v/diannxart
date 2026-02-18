@@ -129,8 +129,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale, d
 
     const post = await client.fetch(
         `*[_type == 'post' && (
-          slug[$locale].current == $value ||
-          slug[$defaultLocale].current == $value ||
+          slug[$locale].current == $postId ||
+          slug[$defaultLocale].current == $postId ||
           _id == $postId
         )]{
           "title": coalesce(title[$locale], title[$defaultLocale]),

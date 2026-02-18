@@ -12,7 +12,6 @@ module.exports = withPWA({
     i18n: {
         locales: ['lt', 'en'],
         defaultLocale: 'lt',
-        localeDetection: true,
     },
     async rewrites() {
         return [
