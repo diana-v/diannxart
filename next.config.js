@@ -9,11 +9,32 @@ module.exports = withPWA({
     images: {
         remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }]
     },
+    i18n: {
+        locales: ['lt', 'en'],
+        defaultLocale: 'lt',
+        localeDetection: true,
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/darbai',
+                destination: '/work',
+            },
+            {
+                source: '/apie',
+                destination: '/about',
+            },
+            {
+                source: '/kontaktai',
+                destination: '/contact',
+            },
+        ];
+    },
     async redirects() {
         return [
             {
                 source: '/',
-                destination: '/work',
+                destination: '/darbai',
                 permanent: true
             },
             {
