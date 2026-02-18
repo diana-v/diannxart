@@ -13,9 +13,9 @@ describe('HeaderContainer', () => {
     });
 
     it('toggles the menu on button click', () => {
-        const { getByText, getByRole } = render(<HeaderContainer />);
+        const { getByText, getByLabelText } = render(<HeaderContainer />);
 
-        const menuButton = getByRole('button');
+        const menuButton = getByLabelText('Navigation');
 
         fireEvent.click(menuButton);
 
