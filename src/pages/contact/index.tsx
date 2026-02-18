@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import styles from './contact.module.scss';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 import { AlertComponent, AlertType } from '@/components/Alert/AlertComponent';
+import { languages, LocaleType } from '@/translations/common';
 
 interface Values {
     from: string;
@@ -26,13 +27,17 @@ interface PageProps {
 }
 
 const Contact: React.FC<PageProps> = ({ posts }) => {
-    const { query } = useRouter();
+    const { query, locale, defaultLocale } = useRouter();
+    const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
     const [alert, setAlert] = React.useState<IAlert>({ message: '', type: AlertType.Success });
     const initialValues: Values = { from: '', subject: query.title?.toString() ?? 'General query', message: '' };
     const contactSchema = Yup.object().shape({
-        from: Yup.string().email('Invalid email').required('Required'),
+        from: Yup.string().email(localisedString.contact.emailError).required(localisedString.contact.required),
         subject: Yup.string().oneOf([...posts, 'General query']),
-        message: Yup.string().min(2, 'Too Short!').max(900, 'Too Long!').required('Required'),
+        message: Yup.string()
+            .min(2, localisedString.contact.errorTooShort)
+            .max(900, localisedString.contact.errorTooLong)
+            .required(localisedString.contact.required),
     });
 
     const handleSubmit = React.useCallback(
@@ -46,13 +51,13 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
             }).then((res) => {
                 if (res.status === 500) {
                     setAlert({
-                        message: 'Ooops, something went wrong... Please try again later',
+                        message: localisedString.contact.errorMessage,
                         type: AlertType.Error,
                     });
                 }
 
                 if (res.status === 200) {
-                    setAlert({ message: 'Your enquiry has been sent!', type: AlertType.Success });
+                    setAlert({ message: localisedString.contact.successMessage, type: AlertType.Success });
                 }
 
                 return setTimeout(() => {
@@ -65,22 +70,22 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
     );
 
     return (
-        <DefaultLayout title="Contact | DiannXArt" description="Get in touch for your custom artwork">
+        <DefaultLayout title={localisedString.contact.seoTitle} description={localisedString.contact.seoDescription}>
             <div className="container flex flex-col mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
-                <h1 className={styles.title}>Contact</h1>
+                <h1 className={styles.title}>{localisedString.contact.title}</h1>
                 <Formik initialValues={initialValues} validationSchema={contactSchema} onSubmit={handleSubmit}>
                     {({ isSubmitting, dirty, touched, errors }) => (
                         <Form className={styles.form}>
                             <div className={styles.question}>
                                 <label className={styles.label} htmlFor="from">
-                                    Email:
+                                    {localisedString.contact.email}
                                 </label>
                                 <div>
                                     <Field
                                         className={cn(styles.field, { [styles.error]: errors.from })}
                                         id="from"
                                         name="from"
-                                        placeholder="email@email.com"
+                                        placeholder={localisedString.contact.emailPlaceholder}
                                         disabled={isSubmitting}
                                     />
                                     {errors.from && touched.from && <div className="text-red-700">{errors.from}</div>}
@@ -88,7 +93,7 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                             </div>
                             <div className={styles.question}>
                                 <label className={styles.label} htmlFor="subject">
-                                    Artwork:
+                                    {localisedString.contact.artwork}
                                 </label>
                                 <div>
                                     <Field
@@ -97,7 +102,7 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                                         id="subject"
                                         name="subject"
                                     >
-                                        <option value="General query">General query</option>
+                                        <option value="General query">{localisedString.contact.generalQuery}</option>
                                         {posts.map((post) => (
                                             <option key={post} value={post}>
                                                 {post}
@@ -111,7 +116,7 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                             </div>
                             <div className={styles.question}>
                                 <label className={styles.label} htmlFor="message">
-                                    Enquiry:
+                                    {localisedString.contact.enquiry}
                                 </label>
                                 <div>
                                     <Field
@@ -120,7 +125,7 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                                         name="message"
                                         component="textarea"
                                         rows="6"
-                                        placeholder="Please write your enquiry here..."
+                                        placeholder={localisedString.contact.messagePlaceholder}
                                         disabled={isSubmitting}
                                     />
                                     {errors.message && touched.message && (
@@ -133,9 +138,9 @@ const Contact: React.FC<PageProps> = ({ posts }) => {
                                 className={styles.submitButton}
                                 type="submit"
                                 disabled={isSubmitting || !dirty}
-                                aria-label="Submit form"
+                                aria-label={localisedString.contact.submit}
                             >
-                                Submit
+                                {localisedString.contact.submit}
                             </button>
                             {alert.message && <AlertComponent color={alert.type} message={alert.message} />}
                         </Form>
@@ -153,8 +158,13 @@ const client = createClient({
     useCdn: false,
 });
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    const posts = await client.fetch(`*[_type == 'post' && sold != true][].title`);
+export const getServerSideProps: GetServerSideProps = async ({ locale, defaultLocale }) => {
+    const posts = await client.fetch(
+        `*[_type == 'post' && sold != true]{
+          "title": coalesce(title[$locale], title[$defaultLocale])
+        }[].title`,
+        { locale, defaultLocale }
+    );
 
     return {
         props: {

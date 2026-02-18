@@ -2,10 +2,12 @@ import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
 import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import styles from './work.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
+import { languages, LocaleType } from '@/translations/common';
 
 type DimensionsType = {
     width: number;
@@ -16,6 +18,7 @@ interface PostData {
     id: string;
     title: string;
     subtitle: string;
+    slug: string;
     imageUrl: string;
     sold: boolean;
     price?: string;
@@ -26,6 +29,9 @@ interface PageProps {
 }
 
 const Work: NextPage<PageProps> = ({ posts }) => {
+    const { locale, defaultLocale } = useRouter();
+    const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
+
     return (
         <PostsLayout>
             <>
@@ -36,7 +42,7 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                 <Link
                                     href={{
                                         pathname: '/work/[postId]',
-                                        query: { postId: post.id },
+                                        query: { postId: post.slug },
                                     }}
                                 >
                                     <div className={styles.imageContainer}>
@@ -47,14 +53,14 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                             width={800}
                                             height={500}
                                         />
-                                        {post.sold && <div className={styles.label}>Sold</div>}
+                                        {post.sold && <div className={styles.label}>{localisedString.post.sold}</div>}
                                     </div>
                                     <div className="flex w-full">
                                         <div className="flex flex-col flex-grow">
                                             <h2 className="text-2xl">{post?.title}</h2>
                                             {post.dimensions && (
                                                 <p className="text-xl flex gap-2">
-                                                    <span>Dimensions:</span>
+                                                    <span>{localisedString.post.dimensions}</span>
                                                     <b>
                                                         {post.dimensions.height}cm x {post.dimensions.width}cm
                                                     </b>
@@ -83,18 +89,20 @@ const client = createClient({
     useCdn: false,
 });
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale, defaultLocale }) => {
     const posts = await client.fetch(
         `*[_type == 'post']{
-          title,
-          subtitle,
+          "title": coalesce(title[$locale], title[$defaultLocale]),
+          "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
+          "slug": coalesce(slug[$locale].current, slug[$defaultLocale].current),
           sold,
           price,
           dimensions,
           orderRank,
           "id": _id,
           "imageUrl": mainImage.asset->url
-      } | order(orderRank)`
+      } | order(orderRank)`,
+        { locale, defaultLocale }
     );
 
     return {

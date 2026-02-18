@@ -11,6 +11,7 @@ import { FooterContainer } from '@/containers/Footer/FooterContainer';
 import styles from './post.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
 import { RichTextComponent } from '@/components/RichText/RichTextComponent';
+import { languages, LocaleType } from '@/translations/common';
 
 type ImagesType = {
     original: string;
@@ -33,6 +34,7 @@ interface PostData {
     sold: boolean;
     dimensions?: DimensionsType;
     body?: TypedObject | TypedObject[];
+    canonicalSlug?: string;
 }
 
 interface PageProps {
@@ -40,7 +42,8 @@ interface PageProps {
 }
 
 const Post: NextPage<PageProps> = ({ post }) => {
-    const { push } = useRouter();
+    const { push, locale, defaultLocale } = useRouter();
+    const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
 
     const publishingYear = post.publishedAt && new Date(post.publishedAt).getFullYear();
 
@@ -61,13 +64,13 @@ const Post: NextPage<PageProps> = ({ post }) => {
                     <div className={styles.description}>
                         {publishingYear && (
                             <p className="text-2xl flex gap-2">
-                                <span>Year:</span>
+                                <span>{localisedString.post.year}</span>
                                 <b>{publishingYear}</b>
                             </p>
                         )}
                         {post.dimensions && (
                             <p className="text-2xl flex gap-2">
-                                <span>Dimensions:</span>
+                                <span>{localisedString.post.dimensions}</span>
                                 <b>
                                     {post.dimensions.height}cm x {post.dimensions.width}cm
                                 </b>
@@ -92,7 +95,7 @@ const Post: NextPage<PageProps> = ({ post }) => {
                         ) : (
                             <ImageContainer alt={post.title} src={post.imageUrl} width={1152} height={1000} />
                         )}
-                        {post.sold && <div className={styles.label}>Sold</div>}
+                        {post.sold && <div className={styles.label}>{localisedString.post.sold}</div>}
                         {post.price && !post.sold && <div className={styles.label}>{post.price}</div>}
                     </div>
                 </div>
@@ -102,9 +105,9 @@ const Post: NextPage<PageProps> = ({ post }) => {
                             type="button"
                             onClick={handleClick}
                             className={styles.button}
-                            aria-label={`Enquire about ${post.title}`}
+                            aria-label={`${localisedString.post.enquireAbout} ${post.title}`}
                         >
-                            Enquire
+                            {localisedString.post.enquire}
                         </button>
                     </div>
                 )}
@@ -121,23 +124,32 @@ const client = createClient({
     useCdn: false,
 });
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params, locale, defaultLocale }) => {
     const postId = params?.postId;
-    const post = await client.fetch(`*[_type == 'post' && _id == '${postId}']{
-          title,
-          subtitle,
+
+    const post = await client.fetch(
+        `*[_type == 'post' && (
+          slug[$locale].current == $value ||
+          slug[$defaultLocale].current == $value ||
+          _id == $postId
+        )]{
+          "title": coalesce(title[$locale], title[$defaultLocale]),
+          "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
           publishedAt,
           sold,
           price,
           dimensions,
-          body,
+          "body": coalesce(body[$locale], body[$defaultLocale]),
+          "canonicalSlug": coalesce(slug[$locale].current, slug[$defaultLocale].current),
           "id": _id,
           "imageUrl": mainImage.asset->url,
           "images": images[] {
             "original": asset->url,
             "originalAlt": alt
           }
-      }[0]`);
+      }[0]`,
+        { postId, locale, defaultLocale }
+    );
 
     return {
         props: {
