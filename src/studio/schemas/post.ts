@@ -1,9 +1,6 @@
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
-    name: 'post',
-    title: 'Post',
-    type: 'document',
     fields: [
         defineField({
             name: 'title',
@@ -17,57 +14,58 @@ export default defineType({
         }),
         defineField({
             name: 'slug',
+            options: {
+                maxLength: 96,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                source: (doc: any) => doc?.title?.en,
+            },
             title: 'Slug',
             type: 'slug',
-            options: {
-                source: (doc: any) => doc?.title?.en,
-                maxLength: 96,
-            },
         }),
         defineField({
             name: 'author',
             title: 'Author',
-            type: 'reference',
             to: { type: 'author' },
+            type: 'reference',
         }),
         defineField({
             name: 'mainImage',
-            title: 'Main image',
-            type: 'image',
             options: {
                 hotspot: true,
             },
+            title: 'Main image',
+            type: 'image',
         }),
         defineField({
             name: 'images',
-            type: 'array',
-            title: 'Images',
             of: [
                 {
-                    name: 'image',
-                    type: 'image',
-                    title: 'Image',
-                    options: {
-                        hotspot: true,
-                    },
                     fields: [
                         {
                             name: 'alt',
-                            type: 'string',
                             title: 'Alternative text',
+                            type: 'string',
                         },
                     ],
+                    name: 'image',
+                    options: {
+                        hotspot: true,
+                    },
+                    title: 'Image',
+                    type: 'image',
                 },
             ],
             options: {
                 layout: 'grid',
             },
+            title: 'Images',
+            type: 'array',
         }),
         defineField({
             name: 'categories',
+            of: [{ to: { type: 'category' }, type: 'reference' }],
             title: 'Categories',
             type: 'array',
-            of: [{ type: 'reference', to: { type: 'category' } }],
         }),
         defineField({
             name: 'publishedAt',
@@ -90,34 +88,37 @@ export default defineType({
             type: 'string',
         }),
         defineField({
+            fields: [
+                { name: 'width', title: 'Width', type: 'number' },
+                { name: 'height', title: 'Height', type: 'number' },
+            ],
             name: 'dimensions',
             title: 'Dimensions',
             type: 'object',
-            fields: [
-                { name: 'width', type: 'number', title: 'Width' },
-                { name: 'height', type: 'number', title: 'Height' },
-            ],
         }),
         defineField({
+            hidden: true,
             name: 'orderRank',
             title: 'Order rank',
             type: 'string',
-            hidden: true,
         }),
     ],
-
+    name: 'post',
     preview: {
-        select: {
-            titleLt: 'title.lt',
-            titleEn: 'title.en',
-            author: 'author.name',
-            media: 'mainImage',
-        },
         prepare(selection) {
-            const { author, titleLt, titleEn } = selection;
+            const { author, titleEn, titleLt } = selection;
             const title = titleLt ?? titleEn ?? 'Untitled';
 
-            return { ...selection, title, subtitle: author && `by ${author}` };
+            return { ...selection, subtitle: author && `by ${author}`, title };
+        },
+        select: {
+            author: 'author.name',
+            media: 'mainImage',
+            titleEn: 'title.en',
+            titleLt: 'title.lt',
         },
     },
+    title: 'Post',
+
+    type: 'document',
 });

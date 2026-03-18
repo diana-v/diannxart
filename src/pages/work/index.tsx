@@ -1,59 +1,58 @@
-import { createClient } from 'next-sanity';
 import { GetServerSideProps, NextPage } from 'next';
+import { createClient } from 'next-sanity';
 import Link from 'next/link';
-import * as React from 'react';
 import { useRouter } from 'next/router';
+import * as React from 'react';
 
-import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
-import styles from './work.module.scss';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
+import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import { languages, LocaleType } from '@/translations/common';
 
-type DimensionsType = {
-    width: number;
+interface DimensionsType {
     height: number;
-};
-
-interface PostData {
-    id: string;
-    title: string;
-    subtitle: string;
-    slug: string;
-    imageUrl: string;
-    sold: boolean;
-    price?: string;
-    dimensions?: DimensionsType;
+    width: number;
 }
+
 interface PageProps {
     posts: PostData[];
 }
+interface PostData {
+    dimensions?: DimensionsType;
+    id: string;
+    imageUrl: string;
+    price?: string;
+    slug: string;
+    sold: boolean;
+    subtitle: string;
+    title: string;
+}
 
 const Work: NextPage<PageProps> = ({ posts }) => {
-    const { locale, defaultLocale } = useRouter();
+    const { defaultLocale, locale } = useRouter();
     const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
 
     return (
         <PostsLayout>
             <>
                 {posts.length > 0 && (
-                    <ul className={styles.root}>
+                    <ul className="container columns-1 lg:columns-2 xl:columns-3 gap-4 lg:gap-8 mx-auto px-4 pt-6 pb-10">
                         {posts.map((post) => (
-                            <li key={post.id} className="mb-8 inline-block">
+                            <li className="mb-8 inline-block" key={post.id}>
                                 <Link
                                     href={{
                                         pathname: '/work/[postId]',
                                         query: { postId: post.id },
                                     }}
                                 >
-                                    <div className={styles.imageContainer}>
+                                    <div className="overflow-hidden rounded-md relative">
                                         <ImageContainer
-                                            className={styles.image}
                                             alt={post.title}
+                                            className="transition-transform ease-in duration-300 hover:scale-105"
+                                            height={500}
                                             src={post.imageUrl}
                                             width={800}
-                                            height={500}
                                         />
-                                        {post.sold && <div className={styles.label}>{localisedString.post.sold}</div>}
+                                        {post.sold && <div className="px-6 py-2 absolute top-8 right-0 bg-white border-black border-r-0 rounded-r-none rounded-md text-lg md:text-xl uppercase font-bold tracking-wider">{localisedString.post.sold}</div>}
                                     </div>
                                     <div className="flex w-full">
                                         <div className="flex flex-col flex-grow">
@@ -83,13 +82,13 @@ const Work: NextPage<PageProps> = ({ posts }) => {
 };
 
 const client = createClient({
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-    dataset: process.env.SANITY_STUDIO_DATASET,
     apiVersion: process.env.SANITY_STUDIO_API_VERSION,
+    dataset: process.env.SANITY_STUDIO_DATASET,
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
     useCdn: false,
 });
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, defaultLocale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ defaultLocale, locale }) => {
     const posts = await client.fetch(
         `*[_type == 'post']{
           "title": coalesce(title[$locale], title[$defaultLocale]),
@@ -102,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, defaultLo
           "id": _id,
           "imageUrl": mainImage.asset->url
       } | order(orderRank)`,
-        { locale, defaultLocale }
+        { defaultLocale, locale }
     );
 
     return {

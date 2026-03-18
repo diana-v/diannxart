@@ -4,21 +4,21 @@ import { useRouter } from 'next/router';
 import { languages, LocaleType } from '@/translations/common';
 
 export default function Home() {
-    const { locale, defaultLocale } = useRouter();
+    const { defaultLocale, locale } = useRouter();
     const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
 
     return (
         <Head>
             <title>diannXart</title>
-            <meta property="og:title" content="diannXart" key="title" />
-            <meta name="description" content={localisedString.home.seoDescription} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta property="og:title" content="DiannXArt" />
-            <meta property="og:site_name" content="DiannXArt" />
-            <meta property="og:url" content="diann.lt" />
-            <meta property="og:description" content={localisedString.home.seoDescription} />
-            <meta property="og:type" content="website" />
-            <meta property="og:image" content="/icons/icon-512x512.png" />
+            <meta content="diannXart" key="title" property="og:title" />
+            <meta content={localisedString.home.seoDescription} name="description" />
+            <meta content="width=device-width, initial-scale=1" name="viewport" />
+            <meta content="DiannXArt" property="og:title" />
+            <meta content="DiannXArt" property="og:site_name" />
+            <meta content="diann.lt" property="og:url" />
+            <meta content={localisedString.home.seoDescription} property="og:description" />
+            <meta content="website" property="og:type" />
+            <meta content="/icons/icon-512x512.png" property="og:image" />
         </Head>
     );
 }

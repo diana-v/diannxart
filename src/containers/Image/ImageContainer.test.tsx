@@ -1,15 +1,15 @@
-import React, { ComponentProps } from 'react';
 import { fireEvent, render } from '@testing-library/react';
+import React, { ComponentProps } from 'react';
 
 import { ImageContainer } from './ImageContainer';
 
 describe('ImageContainer', () => {
     const defaultProps = {
-        width: 500,
-        height: 500,
-        src: '/image.jpg',
         alt: 'Sample Image',
         blurDataURL: 'data:image/png;base64,placeholderdata',
+        height: 500,
+        src: '/image.jpg',
+        width: 500,
     };
 
     const renderComponent = (props: ComponentProps<typeof ImageContainer> = defaultProps) =>
@@ -51,7 +51,7 @@ describe('ImageContainer', () => {
     });
 
     it('applies the error handling class on image error', () => {
-        const { getByAltText, container } = render(<ImageContainer {...defaultProps} />);
+        const { container, getByAltText } = render(<ImageContainer {...defaultProps} />);
         const image = getByAltText('Sample Image');
 
         fireEvent(image, new Event('error'));

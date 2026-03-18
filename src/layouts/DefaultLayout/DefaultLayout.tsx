@@ -1,21 +1,21 @@
-import * as React from 'react';
 import Head from 'next/head';
+import * as React from 'react';
 
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
 
 interface ComponentProps {
-    title: string;
+    children: React.JSX.Element;
     description: string;
-    children: JSX.Element;
+    title: string;
 }
 
-export const DefaultLayout: React.FC<ComponentProps> = ({ title, description, children }) => {
+export const DefaultLayout = ({ children, description, title }: ComponentProps) => {
     return (
         <>
             <Head>
                 <title>{title}</title>
-                <meta name="description" content={description} />
+                <meta content={description} name="description" />
             </Head>
             <div className="min-h-screen flex flex-col">
                 <HeaderContainer />

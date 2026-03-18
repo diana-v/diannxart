@@ -1,5 +1,5 @@
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
 
 import { HeaderContainer } from './HeaderContainer';
 
@@ -13,7 +13,7 @@ describe('HeaderContainer', () => {
     });
 
     it('toggles the menu on button click', () => {
-        const { getByText, getByLabelText } = render(<HeaderContainer />);
+        const { getByLabelText, getByText } = render(<HeaderContainer />);
 
         const menuButton = getByLabelText('Navigation');
 
