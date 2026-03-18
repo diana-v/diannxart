@@ -1,24 +1,23 @@
-import * as React from 'react';
 import { useRouter } from 'next/router';
+import * as React from 'react';
 
-import styles from './postsLayout.module.scss';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 import { languages, LocaleType } from '@/translations/common';
 
 interface ComponentProps {
-    children: JSX.Element;
+    children: React.JSX.Element;
 }
 
-export const PostsLayout: React.FC<ComponentProps> = ({ children }) => {
-    const { locale, defaultLocale } = useRouter();
+export const PostsLayout = ({ children }: ComponentProps) => {
+    const { defaultLocale, locale } = useRouter();
     const localisedString = languages[(locale ?? defaultLocale) as LocaleType];
 
     return (
-        <DefaultLayout title={localisedString.posts.seoTitle} description={localisedString.posts.subtitle}>
+        <DefaultLayout description={localisedString.posts.subtitle} title={localisedString.posts.seoTitle}>
             <>
                 <div className="container flex justify-between flex-col md:flex-row mx-auto px-4 py-3">
-                    <h1 className={styles.title}>{localisedString.posts.title}</h1>
-                    <p className={styles.subtitle}>{localisedString.posts.subtitle}</p>
+                    <h1 className='uppercase text-7xl md:text-9xl font-serif font-thin transition-[font-size] ease-in duration-500'>{localisedString.posts.title}</h1>
+                    <p className="md:w-1/4 mt-4 text-lg md:text-xl md:text-right">{localisedString.posts.subtitle}</p>
                 </div>
                 {children}
             </>

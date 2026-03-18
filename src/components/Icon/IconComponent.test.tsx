@@ -1,11 +1,15 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 
 import { IconComponent, Icons } from './IconComponent';
 
 jest.mock('./icons/hamburger.svg', () => ({
-    ReactComponent: 'svg',
+    __esModule: true,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    default: (props: any) => <svg {...props} />,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ReactComponent: (props: any) => <svg {...props} />,
 }));
 
 describe('IconComponent', () => {

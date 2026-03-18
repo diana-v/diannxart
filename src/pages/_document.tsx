@@ -1,16 +1,16 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-                <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="theme-color" content="#FFFFFF" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-                <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-                <link rel="manifest" href="/manifest.json" />
+                <meta content="default" name="apple-mobile-web-app-status-bar-style" />
+                <meta content="yes" name="mobile-web-app-capable" />
+                <meta content="#FFFFFF" name="theme-color" />
+                <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+                <link href="/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
+                <link href="/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+                <link href="/manifest.json" rel="manifest" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Darker+Grotesque&family=Homemade+Apple&family=Playfair+Display&display=swap"
                     rel="stylesheet"

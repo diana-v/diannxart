@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        box-sizing: border-box;
+
+        @apply font-sans;
+    }
+
+    * {
+        box-sizing: inherit;
+
+        /* Using standard CSS variables or theme function requires ignoring the rule in Stylelint,
+           but it's cleaner to use standard values here since they are base styles */
+        scrollbar-color: #e4e7eb #fff;
+
+        &::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #e4e7eb;
+            border-radius: 15px;
+
+            &:hover,
+            &:active {
+                background: #ccd2d8;
+            }
+        }
+    }
+
+    h1 {
+        @apply font-serif text-2xl font-bold;
+    }
+
+    h2 {
+        @apply font-serif text-xl font-bold;
+    }
+
+    h3 {
+        @apply font-serif text-lg font-bold;
+    }
+
+    h4 {
+        @apply font-serif text-base font-bold;
+    }
+}
+
+/* Use a comment to ignore the class pattern for third-party overrides */
+/* stylelint-disable-next-line selector-class-pattern */
+.image-gallery {
+    --ig-white: rgb(255 255 255 / 60%);
+    --ig-blue: #fff;
+}

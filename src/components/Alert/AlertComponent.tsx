@@ -1,27 +1,25 @@
-import * as React from 'react';
 import cn from 'clsx';
-
-import styles from './alertComponent.module.scss';
+import * as React from 'react';
 
 export enum AlertType {
-    Success = 'success',
     Error = 'error',
+    Success = 'success',
 }
 
 interface ComponentProps {
+    className?: string;
     color: AlertType;
     message: string;
-    className?: string;
 }
 
-export const AlertComponent: React.FC<ComponentProps> = ({ color, message, className }) => {
+export const AlertComponent = ({ className, color, message }: ComponentProps) => {
     const wrapperClass = cn({
-        [styles.success]: color === AlertType.Success,
-        [styles.error]: color === AlertType.Error,
+        'px-4 py-2 w-full rounded-md text-lg md:text-xl border border-green-400 bg-green-100': color === AlertType.Success,
+        'px-4 py-2 w-full rounded-md text-lg md:text-xl border border-red-400 bg-red-100': color === AlertType.Error,
     });
 
     return (
-        <div data-testid="alertComponent" className={`${className} ${wrapperClass}`}>
+        <div className={`${className} ${wrapperClass}`} data-testid="alertComponent">
             {message}
         </div>
     );

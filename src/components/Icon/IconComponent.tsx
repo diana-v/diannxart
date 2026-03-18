@@ -1,8 +1,5 @@
-import * as React from 'react';
+import { lazy, Suspense, SVGProps, useMemo } from 'react';
 
-/**
- * @enum
- */
 export enum Icons {
     hamburger = 'hamburger',
 }
@@ -11,37 +8,22 @@ interface ComponentProps {
     name: keyof typeof Icons;
 }
 
-export const IconComponent: React.FC<ComponentProps & React.SVGProps<SVGSVGElement>> = ({ name, ...rest }) => {
-    const ImportedIconRef = React.useRef<React.FC<React.SVGProps<SVGSVGElement>>>();
-    const [loading, setLoading] = React.useState(true);
+export const IconComponent = ({ name, ...rest }: ComponentProps & SVGProps<SVGSVGElement>) => {
+    const DynamicIcon = useMemo(() => {
+        return lazy(async () => {
+            const iconModule = await import(`./icons/${Icons[name]}.svg`);
 
-    const importIcon = React.useCallback(async () => {
-        try {
-            const importedIcon = await import(`./icons/${Icons[name]}.svg`);
+            const Component = iconModule.ReactComponent || iconModule.default;
 
-            ImportedIconRef.current = importedIcon.ReactComponent;
-        } finally {
-            setLoading(false);
-        }
+            return { default: Component };
+        });
     }, [name]);
 
-    React.useEffect(() => {
-        setLoading(true);
-
-        importIcon();
-
-        return () => {
-            setLoading(false);
-        };
-    }, [importIcon, name]);
-
-    if (!loading && ImportedIconRef.current) {
-        const { current: ImportedIcon } = ImportedIconRef;
-
-        return <ImportedIcon data-testid="iconComponent" {...rest} />;
-    }
-
-    return null;
+    return (
+        <Suspense fallback={null}>
+            <DynamicIcon data-testid="iconComponent" {...rest} />
+        </Suspense>
+    );
 };
 
 IconComponent.displayName = 'IconComponent';
