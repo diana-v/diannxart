@@ -50,13 +50,16 @@ describe('ImageContainer', () => {
         expect(image).toHaveClass('custom-class');
     });
 
-    it('applies the error handling class on image error', () => {
-        const { container, getByAltText } = render(<ImageContainer {...defaultProps} />);
-        const image = getByAltText('Sample Image');
+    it('removes the component from the DOM on image error', () => {
+        const { queryByAltText } = render(<ImageContainer {...defaultProps} />);
+        const image = queryByAltText('Sample Image');
 
-        fireEvent(image, new Event('error'));
+        expect(image).toBeInTheDocument();
 
-        expect(container?.classList?.contains('none')).toBeTruthy();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        fireEvent.error(image!);
+
+        expect(queryByAltText('Sample Image')).not.toBeInTheDocument();
     });
 
     it('renders placeholder when src is not an external URL', () => {
