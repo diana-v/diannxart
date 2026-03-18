@@ -14,7 +14,9 @@ test.describe('Contact page', () => {
         await page.selectOption('#subject', { label: 'General query' });
         await page.fill('#message', 'This is a test message');
 
-        const responsePromise = page.waitForResponse('/api/send-email');
+        const responsePromise = page.waitForResponse(response =>
+            response.url().includes('/api/send-email') && response.request().method() === 'POST'
+        );
 
         await page.click('button[type="submit"]');
 
