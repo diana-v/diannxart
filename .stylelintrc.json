@@ -14,7 +14,8 @@
           "layer",
           "variants",
           "responsive",
-          "screen"
+          "screen",
+          "theme"
         ]
       }
     ],
