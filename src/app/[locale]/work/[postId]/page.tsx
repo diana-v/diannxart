@@ -27,7 +27,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     };
 }
 
-// 3. Main Server Component
 export default async function PostPage({ params }: { params: Promise<{ locale: string, postId: string }> }) {
     const { locale, postId } = await params;
     const post = await getPost(postId, locale);
