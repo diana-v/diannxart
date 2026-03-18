@@ -10,14 +10,19 @@ test.describe('Contact page', () => {
     });
 
     test('should fill and submit the contact form', async ({ page }) => {
+        await page.waitForLoadState('networkidle');
+
         await page.fill('#from', 'test@example.com');
         await page.selectOption('#subject', { label: 'General query' });
         await page.fill('#message', 'This is a test message');
 
-        await page.click('button[type="submit"]');
+        const submitButton = page.locator('button[type="submit"]');
 
-        const successMessage = page.getByText('Your enquiry has been sent!');
+        await expect(submitButton).toBeVisible();
+        await expect(submitButton).toBeEnabled();
 
-        await expect(successMessage).toBeVisible({ timeout: 15_000 });
+        await submitButton.click();
+
+        await expect(page.locator('text=/Your enquiry has been sent/i')).toBeVisible({ timeout: 15_000 });
     });
 });
