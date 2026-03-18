@@ -29,7 +29,7 @@ export const HeaderContainer = () => {
 
     return (
         <nav className="container mx-auto flex flex-wrap justify-between items-center px-4 py-3 gap-x-5">
-            <Link className="font-display text-3xl leading-[3.5rem]" href={'/work'}>
+            <Link className="font-display text-3xl leading-14" href={'/work'}>
                 diann x art
             </Link>
             <button
@@ -39,7 +39,7 @@ export const HeaderContainer = () => {
             >
                 <IconComponent name="hamburger" />
             </button>
-            <div className={`${showMenu ? 'max-h-[144px]' : 'max-h-[0px]'} md:max-h-[initial] overflow-hidden md:overflow-visible flex flex-col md:flex-row basis-full md:basis-auto gap-2 md:gap-5 text-xl md:text-2xl transition-[max-height] ease-out duration-500`}>
+            <div className={`${showMenu ? 'max-h-[144px]' : 'max-h-0'} md:max-h-[initial] overflow-hidden md:overflow-visible flex flex-col md:flex-row basis-full md:basis-auto gap-2 md:gap-5 text-xl md:text-2xl transition-[max-height] ease-out duration-500`}>
                 <Link
                     className={cn('text-grey-600 hover:text-black', {
                         'text-black': asPath === Pages.Work,

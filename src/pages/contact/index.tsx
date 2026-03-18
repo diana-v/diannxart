@@ -70,18 +70,18 @@ const Contact = ({ posts }: PageProps) => {
 
     return (
         <DefaultLayout description={localisedString.contact.seoDescription} title={localisedString.contact.seoTitle}>
-            <div className="container flex flex-col mx-auto px-4 py-3 gap-8 flex-grow max-w-5xl">
+            <div className="container flex flex-col mx-auto px-4 py-3 gap-8 grow max-w-5xl">
                 <h1 className='uppercase text-5xl md:text-7xl font-serif font-thin text-center transition-[font-size] ease-in duration-500'>{localisedString.contact.title}</h1>
                 <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={contactSchema}>
                     {({ dirty, errors, isSubmitting, touched }) => (
-                        <Form className="flex flex-col flex-grow gap-6">
+                        <Form className="flex flex-col grow gap-6">
                             <div className="flex flex-col gap-2">
                                 <label className="text-xl md:text-2xl" htmlFor="from">
                                     {localisedString.contact.email}
                                 </label>
                                 <div>
                                     <Field
-                                        className={cn("rounded border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { "text-red-700 border-red-400": errors.from })}
+                                        className={cn("rounded-sm border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { "text-red-700 border-red-400": errors.from })}
                                         disabled={isSubmitting}
                                         id="from"
                                         name="from"
@@ -96,7 +96,7 @@ const Contact = ({ posts }: PageProps) => {
                                 </label>
                                 <div>
                                     <Field
-                                        className={cn("rounded border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { 'text-red-700 border-red-400': errors.subject })}
+                                        className={cn("rounded-sm border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { 'text-red-700 border-red-400': errors.subject })}
                                         component="select"
                                         id="subject"
                                         name="subject"
@@ -119,7 +119,7 @@ const Contact = ({ posts }: PageProps) => {
                                 </label>
                                 <div>
                                     <Field
-                                        className={cn("rounded border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { "text-red-700 border-red-400": errors.message })}
+                                        className={cn("rounded-sm border w-full p-2 bg-transparent text-lg md:text-xl disabled:text-grey-300 disabled:border-grey-100 disabled:cursor-not-allowed", { "text-red-700 border-red-400": errors.message })}
                                         component="textarea"
                                         disabled={isSubmitting}
                                         id="message"

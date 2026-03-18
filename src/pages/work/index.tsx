@@ -55,7 +55,7 @@ const Work: NextPage<PageProps> = ({ posts }) => {
                                         {post.sold && <div className="px-6 py-2 absolute top-8 right-0 bg-white border-black border-r-0 rounded-r-none rounded-md text-lg md:text-xl uppercase font-bold tracking-wider">{localisedString.post.sold}</div>}
                                     </div>
                                     <div className="flex w-full">
-                                        <div className="flex flex-col flex-grow">
+                                        <div className="flex flex-col grow">
                                             <h2 className="text-2xl">{post?.title}</h2>
                                             {post.dimensions && (
                                                 <p className="text-xl flex gap-2">

@@ -44,6 +44,7 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "16.1.7",
     "@playwright/test": "^1.51.1",
+    "@tailwindcss/postcss": "^4.2.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
@@ -52,7 +53,6 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@types/react-image-gallery": "^1.2.4",
-    "autoprefixer": "^10.4.20",
     "eslint": "^9.21.0",
     "eslint-config-next": "16.1.7",
     "eslint-config-prettier": "^10.0.1",
@@ -73,7 +73,7 @@
     "stylelint": "^16.14.1",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-prettier": "^5.0.3",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.2.1",
     "typescript-eslint": "^8.24.1"
   },
   "overrides": {
