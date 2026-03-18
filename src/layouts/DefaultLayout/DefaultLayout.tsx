@@ -1,27 +1,22 @@
-import Head from 'next/head';
-import * as React from 'react';
+import { ReactNode } from 'react';
 
 import { FooterContainer } from '@/containers/Footer/FooterContainer';
 import { HeaderContainer } from '@/containers/Header/HeaderContainer';
+import { LocaleType } from '@/translations/common';
 
 interface ComponentProps {
-    children: React.JSX.Element;
-    description: string;
-    title: string;
+    children: ReactNode;
+    locale: LocaleType;
 }
 
-export const DefaultLayout = ({ children, description, title }: ComponentProps) => {
+export const DefaultLayout = ({ children, locale }: ComponentProps) => {
     return (
-        <>
-            <Head>
-                <title>{title}</title>
-                <meta content={description} name="description" />
-            </Head>
-            <div className="min-h-screen flex flex-col">
-                <HeaderContainer />
+        <div className="min-h-screen flex flex-col">
+            <HeaderContainer locale={locale} />
+            <main className="flex-grow flex flex-col">
                 {children}
-                <FooterContainer />
-            </div>
-        </>
+            </main>
+            <FooterContainer />
+        </div>
     );
 };

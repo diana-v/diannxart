@@ -2,13 +2,9 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Darker Grotesque', sans-serif;
-    --font-serif: 'Playfair Display', serif;
-    --font-display: 'Homemade Apple', cursive;
-    --text-2xl: 1.5rem;
-    --text-xl: 1.25rem;
-    --text-lg: 1.125rem;
-    --text-base: 1rem;
+    --font-sans: var(--font-sans), sans-serif;
+    --font-serif: var(--font-serif), serif;
+    --font-display: var(--font-display), cursive;
     --color-error: #e50303;
     --color-warning: #ffd100;
     --color-success: #00e686;
@@ -25,14 +21,6 @@
     --color-grey-900: #212932;
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
     *,
     ::after,
@@ -52,9 +40,6 @@
 
     * {
         box-sizing: inherit;
-
-        /* Using standard CSS variables or theme function requires ignoring the rule in Stylelint,
-           but it's cleaner to use standard values here since they are base styles */
         scrollbar-color: #e4e7eb #fff;
 
         &::-webkit-scrollbar {
@@ -78,19 +63,19 @@
     }
 
     h1 {
-        @apply font-serif text-2xl font-bold;
+        @apply font-serif text-2xl font-medium;
     }
 
     h2 {
-        @apply font-sans text-xl font-bold;
+        @apply font-sans text-xl font-medium;
     }
 
     h3 {
-        @apply font-serif text-lg font-bold;
+        @apply font-serif text-lg font-medium;
     }
 
     h4 {
-        @apply font-serif text-base font-bold;
+        @apply font-serif text-base font-medium;
     }
 }
 

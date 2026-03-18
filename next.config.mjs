@@ -7,14 +7,11 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    i18n: {
-        defaultLocale: 'lt',
-        locales: ['lt', 'en'],
-    },
     images: {
         remotePatterns: [{ hostname: 'cdn.sanity.io', protocol: 'https' }]
     },
     reactStrictMode: true,
+    allowedDevOrigins: ['127.0.0.1', 'localhost'],
     turbopack: {
         rules: {
             '*.svg': {

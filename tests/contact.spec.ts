@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
     await page.goto('http://127.0.0.1:3000/en/contact');
@@ -14,8 +14,16 @@ test.describe('Contact page', () => {
         await page.selectOption('#subject', { label: 'General query' });
         await page.fill('#message', 'This is a test message');
 
+        const responsePromise = page.waitForResponse('/api/send-email');
+
         await page.click('button[type="submit"]');
 
-        await expect(page.getByText('Your enquiry has been sent!')).toBeTruthy();
+        const response = await responsePromise;
+
+        expect(response.status()).toBe(200);
+
+        const successMessage = page.getByText('Your enquiry has been sent!');
+
+        await expect(successMessage).toBeVisible({ timeout: 10_000 });
     });
 });
