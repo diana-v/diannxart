@@ -79,7 +79,6 @@
     }
 }
 
-/* Use a comment to ignore the class pattern for third-party overrides */
 /* stylelint-disable-next-line selector-class-pattern */
 .image-gallery {
     --ig-white: rgb(255 255 255 / 60%);
