@@ -8,6 +8,8 @@ import { PostGalleryContainer } from '@/containers/PostGallery/PostGalleryContai
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 import { languages, LocaleType } from '@/translations/common';
 
+export const revalidate = 60;
+
 const client = createClient({
     apiVersion: process.env.SANITY_STUDIO_API_VERSION,
     dataset: process.env.SANITY_STUDIO_DATASET,

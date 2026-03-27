@@ -7,6 +7,8 @@ import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import { languages, LocaleType } from '@/translations/common';
 import { PostData } from '@/types/post';
 
+export const revalidate = 60;
+
 const client = createClient({
     apiVersion: process.env.SANITY_STUDIO_API_VERSION,
     dataset: process.env.SANITY_STUDIO_DATASET,
