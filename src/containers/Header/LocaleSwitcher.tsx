@@ -14,7 +14,7 @@ export const LocaleSwitcher = ({ locale }: { locale: string }) => {
     };
 
     return (
-        <button className="text-3xl" onClick={handleToggle} type="button">
+        <button className="text-3xl w-10" onClick={handleToggle} type="button">
             {locale === 'lt' ? '🇬🇧' : '🇱🇹'}
         </button>
     );
