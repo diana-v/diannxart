@@ -22,7 +22,7 @@
     "@portabletext/react": "^6.0.3",
     "@portabletext/types": "^4.0.1",
     "@sanity/asset-utils": "^2.3.0",
-    "@sanity/cli": "^6.1.7",
+    "@sanity/cli": "^6.3.1",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/vision": "^5.17.1",
     "@svgr/webpack": "^6.5.1",

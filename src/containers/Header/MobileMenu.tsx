@@ -37,8 +37,8 @@ export const MobileMenu = ({ locale, localisedString }: MobileMenuProps) => {
             </button>
 
             <div className={cn(
-                "flex flex-col md:flex-row gap-5 text-xl md:text-2xl transition-[max-height]",
-                showMenu ? "max-h-40" : "max-h-0 md:max-h-none overflow-hidden md:overflow-visible"
+                "flex flex-col md:flex-row gap-5 text-xl md:text-2xl transition-[max-height] w-full md:w-auto",
+                showMenu ? "max-h-56" : "max-h-0 md:max-h-none overflow-hidden md:overflow-visible"
             )}>
                 {links.map((link) => (
                     <Link
