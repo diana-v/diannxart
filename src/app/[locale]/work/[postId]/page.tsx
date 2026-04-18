@@ -8,8 +8,6 @@ import { PostGalleryContainer } from '@/containers/PostGallery/PostGalleryContai
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 import { languages, LocaleType } from '@/translations/common';
 
-export const revalidate = 60;
-
 const client = createClient({
     apiVersion: process.env.SANITY_STUDIO_API_VERSION,
     dataset: process.env.SANITY_STUDIO_DATASET,
@@ -94,6 +92,12 @@ async function getPost(postId: string, locale: string) {
           "imageUrl": mainImage.asset->url,
           "images": images[] { "original": asset->url, "originalAlt": alt }
       }[0]`,
-        { defaultLocale, locale, postId }
+        { defaultLocale, locale, postId },
+        {
+            next: {
+                revalidate: 60,
+                tags: ['post', postId ]
+            }
+        }
     );
 }

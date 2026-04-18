@@ -7,8 +7,6 @@ import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import { languages, LocaleType } from '@/translations/common';
 import { PostData } from '@/types/post';
 
-export const revalidate = 60;
-
 const client = createClient({
     apiVersion: process.env.SANITY_STUDIO_API_VERSION,
     dataset: process.env.SANITY_STUDIO_DATASET,
@@ -43,7 +41,13 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
           "id": _id,
           "imageUrl": mainImage.asset->url
       } | order(orderRank)`,
-        { defaultLocale: 'lt', locale: lang }
+        { defaultLocale: 'lt', locale: lang },
+        {
+            next: {
+                revalidate: 60,
+                tags: ['posts', 'list']
+            }
+        }
     );
 
     return (
