@@ -17,43 +17,24 @@ const client = createClient({
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
     const lang = locale as LocaleType;
-    const posts = await client.fetch(
-        `*[_type == 'post']{
-          "title": coalesce(title[$locale], title[$defaultLocale]),
-          "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
-          "slug": coalesce(slug[$locale].current, slug[$defaultLocale].current),
-          sold,
-          price,
-          dimensions,
-          orderRank,
-          "id": _id,
-          "imageUrl": mainImage.asset->url
-      } | order(orderRank)`,
-        { defaultLocale: 'lt', locale: lang },
-        {
-            next: {
-                revalidate: 60,
-                tags: ['posts', 'list']
-            }
-        }
-    );
+    const localisedString = languages[lang];
 
     return {
-        description: 'Art Gallery and Portfolio',
+        description: localisedString?.home?.seoDescription,
         openGraph: {
-            description: posts?.subtitle,
-            images: posts?.[0]?.image ? [posts[0].image] : [],
-            siteName: 'SeaSafari',
-            title: posts?.title,
-            type: 'article',
-            url: `https://www.diann.lt/${locale}/work`,
+            description: localisedString?.home?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            siteName: 'DiannXArt',
+            title: 'DiannXArt',
+            type: 'website',
+            url: 'https://diann.lt',
         },
-        title: lang === 'lt' ? 'Darbai | diannxart' : 'Work | diannxart',
+        title: 'diannXart',
         twitter: {
             card: 'summary_large_image',
-            description: posts?.subtitle,
-            images: posts?.[0]?.image ? [posts[0].image] : [],
-            title: posts?.title,
+            description: localisedString?.home?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            title: 'DiannXArt',
         },
     };
 }
