@@ -1,5 +1,7 @@
 import withPWAInit from "next-pwa";
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN || 'http://127.0.0.1:3000';
+
 const withPWA = withPWAInit({
     dest: 'public',
     disable: process.env.NODE_ENV !== "production",
@@ -11,7 +13,11 @@ const nextConfig = {
         remotePatterns: [{ hostname: 'cdn.sanity.io', protocol: 'https' }]
     },
     reactStrictMode: true,
-    allowedDevOrigins: ['127.0.0.1', 'localhost'],
+    allowedDevOrigins: [
+        new URL(domain).host,
+        '127.0.0.1',
+        'localhost',
+    ],
     turbopack: {
         rules: {
             '*.svg': {
@@ -22,11 +28,6 @@ const nextConfig = {
     },
     async redirects() {
         return [
-            {
-                source: '/:locale(en|lt)?',
-                destination: '/work',
-                permanent: true,
-            },
             {
                 source: '/studio',
                 destination: '/studio/desk',

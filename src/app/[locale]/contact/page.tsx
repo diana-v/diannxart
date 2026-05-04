@@ -50,7 +50,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const localisedString = languages[locale as LocaleType];
 
     return {
-        description: localisedString.contact.seoDescription,
-        title: localisedString.contact.seoTitle,
+        description: localisedString?.contact?.seoDescription,
+        openGraph: {
+            description: localisedString?.contact?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            siteName: 'Diann',
+            title: localisedString?.contact?.seoTitle,
+            type: 'article',
+            url: `https://www.diann.lt/${locale}/contact`,
+        },
+        title: localisedString?.contact?.seoTitle,
+        twitter: {
+            card: 'summary_large_image',
+            description: localisedString?.contact?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            title: localisedString?.contact?.seoTitle,
+        },
     };
 }
