@@ -23,8 +23,18 @@ const nextConfig = {
     async redirects() {
         return [
             {
-                source: '/:locale(en|lt)?',
-                destination: '/work',
+                source: '/',
+                destination: '/lt/work',
+                permanent: true,
+            },
+            {
+                source: '/lt',
+                destination: '/lt/work',
+                permanent: true,
+            },
+            {
+                source: '/en',
+                destination: '/en/work',
                 permanent: true,
             },
             {

@@ -30,9 +30,6 @@ export const languages = {
             successMessage: 'Your enquiry has been sent!',
             title: 'Contact',
         },
-        home: {
-            seoDescription: 'Discover a diverse collection of original artworks for sale',
-        },
         navigation: {
             about: 'About',
             contact: 'Contact',
@@ -80,9 +77,6 @@ export const languages = {
             submit: 'Pateikti',
             successMessage: 'Jūsų užklausa buvo išsiūsta!',
             title: 'Kontaktai',
-        },
-        home: {
-            seoDescription: 'Atraskite parduodamus meno kūrinius',
         },
         navigation: {
             about: 'Apie',

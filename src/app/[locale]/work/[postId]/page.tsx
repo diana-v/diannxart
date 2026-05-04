@@ -23,7 +23,21 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
     return {
         description: post.subtitle,
+        openGraph: {
+            description: post?.subtitle,
+            images: post?.image ? [post.image] : [],
+            siteName: 'Diann',
+            title: post?.title,
+            type: 'article',
+            url: `https://www.diann.lt/${locale}/work/${post?.slug}`,
+        },
         title: `${post.title} | DiannXArt`,
+        twitter: {
+            card: 'summary_large_image',
+            description: post?.subtitle,
+            images: post?.image ? [post.image] : [],
+            title: post?.title,
+        },
     };
 }
 

@@ -17,10 +17,25 @@ const client = createClient({
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
     const lang = locale as LocaleType;
+    const localisedString = languages[lang];
 
     return {
-        description: 'Art Gallery and Portfolio',
-        title: lang === 'lt' ? 'Darbai | diannxart' : 'Work | diannxart',
+        description: localisedString?.posts?.subtitle,
+        openGraph: {
+            description: localisedString?.posts?.subtitle,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            siteName: 'DiannXArt',
+            title: localisedString?.posts?.seoTitle,
+            type: 'website',
+            url: 'https://diann.lt',
+        },
+        title: localisedString?.posts?.seoTitle,
+        twitter: {
+            card: 'summary_large_image',
+            description: localisedString?.posts?.subtitle,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            title: localisedString?.posts?.seoTitle,
+        },
     };
 }
 

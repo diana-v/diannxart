@@ -33,11 +33,23 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const { locale } = await params;
     const localisedString = languages[locale as LocaleType];
 
-    if (!localisedString) return {};
-
     return {
-        description: localisedString.about.seoDescription,
-        title: localisedString.about.seoTitle,
+        description: localisedString?.about?.seoDescription,
+        openGraph: {
+            description: localisedString?.about?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            siteName: 'Diann',
+            title: localisedString?.about?.seoTitle,
+            type: 'article',
+            url: `https://www.diann.lt/${locale}/about`,
+        },
+        title: localisedString?.about?.seoTitle,
+        twitter: {
+            card: 'summary_large_image',
+            description: localisedString?.about?.seoDescription,
+            images: ['https://www.diann.lt/icons/icon-512x512.png'],
+            title: localisedString?.about?.seoTitle,
+        },
     };
 }
 
