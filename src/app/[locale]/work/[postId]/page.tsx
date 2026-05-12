@@ -97,7 +97,7 @@ async function getPost(postId: string, locale: string) {
     const defaultLocale = 'lt';
 
     return await client.fetch(
-        `*[_type == 'post' && (slug[$locale].current == $postId || slug[$defaultLocale].current == $postId || _id == $postId)]{
+        `*[_type == 'post' && slug.current == $postId]{
           "title": coalesce(title[$locale], title[$defaultLocale]),
           "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
           publishedAt, sold, price, dimensions,

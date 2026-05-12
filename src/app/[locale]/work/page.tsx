@@ -48,7 +48,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
         `*[_type == 'post']{
           "title": coalesce(title[$locale], title[$defaultLocale]),
           "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
-          "slug": coalesce(slug[$locale].current, slug[$defaultLocale].current),
+          "slug": slug.current,
           sold,
           price,
           dimensions,
@@ -71,7 +71,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
                 <ul className="container columns-1 lg:columns-2 xl:columns-3 gap-4 lg:gap-8 mx-auto px-4 pt-6 pb-10">
                     {posts.map((post: PostData) => (
                         <li className="mb-8 inline-block w-full" key={post.id}>
-                            <Link href={`/${lang}/work/${post.slug || post.id}`}>
+                            <Link href={`/${lang}/work/${post.slug}`}>
                                 <div className="overflow-hidden rounded-md relative">
                                     <ImageContainer
                                         alt={post.title}
