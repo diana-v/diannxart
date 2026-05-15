@@ -8,7 +8,8 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: [{ hostname: 'cdn.sanity.io', protocol: 'https' }]
+        remotePatterns: [{ hostname: 'cdn.sanity.io', protocol: 'https' }],
+        minimumCacheTTL: 60 * 60 * 24,
     },
     reactStrictMode: true,
     allowedDevOrigins: ['127.0.0.1', 'localhost'],
@@ -19,6 +20,12 @@ const nextConfig = {
                 as: '*.js',
             },
         },
+    },
+    experimental: {
+        staleTimes: {
+            dynamic: 30,
+            static: 300
+        }
     },
     async redirects() {
         return [
