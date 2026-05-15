@@ -1,18 +1,11 @@
 import { Metadata } from 'next';
-import { createClient } from 'next-sanity';
 import Link from 'next/link';
 
 import { ImageContainer } from '@/containers/Image/ImageContainer';
 import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
+import { getPosts } from '@/schemas/getPosts';
 import { languages, LocaleType } from '@/translations/common';
 import { PostData } from '@/types/post';
-
-const client = createClient({
-    apiVersion: process.env.SANITY_STUDIO_API_VERSION,
-    dataset: process.env.SANITY_STUDIO_DATASET,
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-    useCdn: false,
-});
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
     const { locale } = await params;
@@ -44,26 +37,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
     const lang = locale as LocaleType;
     const localisedString = languages[lang];
 
-    const posts = await client.fetch(
-        `*[_type == 'post']{
-          "title": coalesce(title[$locale], title[$defaultLocale]),
-          "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
-          "slug": slug.current,
-          sold,
-          price,
-          dimensions,
-          orderRank,
-          "id": _id,
-          "imageUrl": mainImage.asset->url
-      } | order(orderRank)`,
-        { defaultLocale: 'lt', locale: lang },
-        {
-            next: {
-                revalidate: 60,
-                tags: ['posts', 'list']
-            }
-        }
-    );
+    const posts = await getPosts(lang)
 
     return (
         <PostsLayout locale={lang}>
@@ -71,7 +45,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
                 <ul className="container columns-1 lg:columns-2 xl:columns-3 gap-4 lg:gap-8 mx-auto px-4 pt-6 pb-10">
                     {posts.map((post: PostData) => (
                         <li className="mb-8 inline-block w-full" key={post.id}>
-                            <Link href={`/${lang}/work/${post.slug}`}>
+                            <Link href={`/${lang}/work/${post.slug}`} prefetch={false}>
                                 <div className="overflow-hidden rounded-md relative">
                                     <ImageContainer
                                         alt={post.title}

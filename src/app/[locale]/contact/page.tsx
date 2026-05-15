@@ -1,16 +1,9 @@
 import { Metadata } from 'next';
-import { createClient } from 'next-sanity';
 
 import { ContactForm } from '@/forms/Contact/ContactForm';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
+import { getUnsoldPosts } from '@/schemas/getUnsoldPosts';
 import { languages, LocaleType } from '@/translations/common';
-
-const client = createClient({
-    apiVersion: process.env.SANITY_STUDIO_API_VERSION,
-    dataset: process.env.SANITY_STUDIO_DATASET,
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-    useCdn: false,
-});
 
 export default async function ContactPage({ params, searchParams }: {
     params: Promise<{ locale: string }>;
@@ -21,12 +14,7 @@ export default async function ContactPage({ params, searchParams }: {
     const lang = locale as LocaleType;
     const localisedString = languages[lang];
 
-    const posts = await client.fetch(
-        `*[_type == 'post' && sold != true]{
-          "title": coalesce(title[$locale], title[$defaultLocale])
-        }[].title`,
-        { defaultLocale: 'lt', locale: lang }
-    );
+    const posts = await getUnsoldPosts(lang)
 
     return (
         <DefaultLayout locale={lang}>

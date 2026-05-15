@@ -8,7 +8,7 @@ export const HeaderContainer = async ({ locale }: { locale: LocaleType }) => {
 
     return (
         <nav className="container mx-auto flex flex-wrap justify-between items-center px-4 py-3 gap-x-5">
-            <Link className="font-display text-3xl leading-14" href={`/${locale}/work`}>
+            <Link className="font-display text-3xl leading-14" href={`/${locale}/work`} prefetch={false}>
                 diann x art
             </Link>
 

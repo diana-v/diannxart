@@ -47,6 +47,7 @@ export const MobileMenu = ({ locale, localisedString }: MobileMenuProps) => {
                         })}
                         href={link.href}
                         key={link.href}
+                        prefetch={false}
                     >
                         {link.label}
                     </Link>

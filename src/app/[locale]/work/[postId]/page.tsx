@@ -1,19 +1,12 @@
 import { Metadata } from 'next';
-import { createClient } from 'next-sanity';
 import { notFound } from 'next/navigation';
 
 import { RichTextComponent } from '@/components/RichText/RichTextComponent';
 import { EnquireButtonContainer } from '@/containers/EnquireButton/EnquireButtonContainer';
 import { PostGalleryContainer } from '@/containers/PostGallery/PostGalleryContainer';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
+import { getPost } from '@/schemas/getPost';
 import { languages, LocaleType } from '@/translations/common';
-
-const client = createClient({
-    apiVersion: process.env.SANITY_STUDIO_API_VERSION,
-    dataset: process.env.SANITY_STUDIO_DATASET,
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID,
-    useCdn: false,
-});
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string, postId: string }> }): Promise<Metadata> {
     const { locale, postId } = await params;
@@ -90,28 +83,5 @@ export default async function PostPage({ params }: { params: Promise<{ locale: s
                 </div>
             )}
         </DefaultLayout>
-    );
-}
-
-async function getPost(postId: string, locale: string) {
-    const defaultLocale = 'lt';
-
-    return await client.fetch(
-        `*[_type == 'post' && slug.current == $postId]{
-          "title": coalesce(title[$locale], title[$defaultLocale]),
-          "subtitle": coalesce(subtitle[$locale], subtitle[$defaultLocale]),
-          publishedAt, sold, price, dimensions,
-          "body": coalesce(body[$locale], body[$defaultLocale]),
-          "id": _id,
-          "imageUrl": mainImage.asset->url,
-          "images": images[] { "original": asset->url, "originalAlt": alt }
-      }[0]`,
-        { defaultLocale, locale, postId },
-        {
-            next: {
-                revalidate: 60,
-                tags: ['post', postId ]
-            }
-        }
     );
 }
