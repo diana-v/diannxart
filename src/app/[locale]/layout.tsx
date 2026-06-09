@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Metadata } from 'next';
 import { Darker_Grotesque, Homemade_Apple, Playfair_Display } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -68,6 +69,7 @@ export default async function RootLayout({ children, params }: {
         >
             <body className="antialiased min-h-screen">
                 {children}
+                <Analytics />
             </body>
         </html>
     );
