@@ -40,6 +40,7 @@ export const languages = {
             dimensions: 'Dimensions:',
             enquire: 'Enquire',
             enquireAbout: 'Enquire about',
+            readMore: 'Read more',
             sold: 'Sold',
             year: 'Year:',
         },
@@ -87,7 +88,8 @@ export const languages = {
         post: {
             dimensions: 'Matmenys:',
             enquire: 'Susisiekti',
-            enquireAbout: 'Enquire about',
+            enquireAbout: 'Susisiekti apie',
+            readMore: 'Skaityti daugiau',
             sold: 'Parduotas',
             year: 'Metai:',
         },

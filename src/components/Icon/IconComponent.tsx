@@ -1,6 +1,7 @@
 import { lazy, Suspense, SVGProps, useMemo } from 'react';
 
 export enum Icons {
+    arrowRightUp = 'arrow-right-up',
     hamburger = 'hamburger',
 }
 
