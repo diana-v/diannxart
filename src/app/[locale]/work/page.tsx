@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+import { IconComponent } from '@/components/Icon/IconComponent';
 import { ImageContainer } from '@/containers/Image/ImageContainer';
 import { PostsLayout } from '@/layouts/PostsLayout/PostsLayout';
 import { getPosts } from '@/schemas/getPosts';
@@ -46,7 +47,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
                     {posts.map((post: PostData) => (
                         <li className="mb-8 inline-block w-full" key={post.id}>
                             <Link href={`/${lang}/work/${post.slug}`} prefetch={false}>
-                                <div className="overflow-hidden rounded-md relative">
+                                <div className="overflow-hidden rounded-md relative mb-2">
                                     <ImageContainer
                                         alt={post.title}
                                         className="transition-transform ease-in duration-300 hover:scale-105"
@@ -60,23 +61,31 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
                                         </div>
                                     )}
                                 </div>
-                                <div className="flex w-full mt-2">
+                                <div className="flex w-full mb-2">
                                     <div className="flex flex-col grow">
-                                        <h2 className="text-3xl font-medium">{post?.title}</h2>
+                                        <h2 className="text-2xl md:text-3xl font-medium">{post?.title}</h2>
                                         {post.dimensions && (
-                                            <p className="text-2xl flex gap-2">
+                                            <p className="text-xl md:text-2xl flex gap-2">
                                                 <span>{localisedString.post.dimensions}</span>
                                                 <b className="font-medium">
                                                     {post.dimensions.height}cm x {post.dimensions.width}cm
                                                 </b>
                                             </p>
                                         )}
-                                        <p className="text-2xl">{post?.subtitle}</p>
+                                        <p className="text-xl md:text-2xl">{post?.subtitle}</p>
                                     </div>
                                     {post.price && !post.sold && (
                                         <span className="text-2xl font-bold">{post.price}</span>
                                     )}
                                 </div>
+                                <button
+                                    aria-label={`${localisedString.post.readMore} ${post?.title}`}
+                                    className="md:py-1 px-3 md:px-4 max-w-6xl rounded-md hover:shadow-md cursor-pointer border border-black text-black flex gap-2 items-center"
+                                    type="button"
+                                >
+                                    <span className="text-xl md:text-2xl md:leading-none pb-1">{localisedString.post.readMore}</span>
+                                    <IconComponent className="h-2.5 md:h-3 w-2.5 md:w-3" name="arrowRightUp" />
+                                </button>
                             </Link>
                         </li>
                     ))}
