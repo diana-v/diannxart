@@ -31,7 +31,7 @@ jobs:
       - run: npm run test:coverage
   e2e_test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: test
     steps:
       - uses: actions/checkout@v3

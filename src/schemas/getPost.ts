@@ -19,7 +19,7 @@ export const getPost = cache(async (postId: string, locale = 'lt', defaultLocale
         {
             cache: 'force-cache',
             next: {
-                revalidate: 84_400,
+                revalidate: 86_400,
                 tags: ['post', postId]
             }
         }

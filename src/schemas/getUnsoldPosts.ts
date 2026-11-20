@@ -13,7 +13,7 @@ export const getUnsoldPosts = cache(async (locale = 'lt', defaultLocale = 'lt') 
         {
             cache: 'force-cache',
             next: {
-                revalidate: 84_400,
+                revalidate: 86_400,
                 tags: ['unsoldPosts']
             }
         }
